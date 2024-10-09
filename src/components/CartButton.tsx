@@ -12,16 +12,21 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from './ui/button'
 import CartList from './CartList'
+import { auth } from '@/auth.config'
 export default async function CartButton() {
+    const session = await auth();
     const { _count } = await prisma.cartItem.aggregate({
         where: {
             cart: {
-                userId: 1
+                userId: session?.user?.id || '',
+               
             }
         },
-        _count: { id: true }
+        
+        _count: { id: true },
+    
     })
-
+console.log(_count,session?.user?.id)
 
     return (
         <>

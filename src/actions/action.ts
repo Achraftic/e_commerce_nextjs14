@@ -1,10 +1,10 @@
 /* eslint-disable prefer-const */
 'use server';
 import { cookies } from "next/headers";
-;
 import { handleMergeArray } from "@/utils/utils";
 import prisma from "../../prisma/db";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/auth.config";
 
 export type ProductCart = {
     id: number;
@@ -14,9 +14,12 @@ export type ProductCart = {
     quantity: number;
 };
 
-let userId = 1; // Simulated user ID for now
+async function userid() {
+    const session = await auth();
+    return session?.user?.id;
+}
 
-async function getOrCreateCart() {
+async function getOrCreateCart(userId: string) {
     let existingCart = await prisma.cart.findFirst({
         where: { userId },
     });
@@ -48,8 +51,10 @@ async function fetchCartItems(cartId: number) {
 }
 
 export async function getCartItems() {
-    if (userId === 1) {
-        const existingCart = await getOrCreateCart();
+    const userId = await userid();
+
+    if (userId) {
+        const existingCart = await getOrCreateCart(userId);
         let existingCartItems = await fetchCartItems(existingCart.id);
 
         // If there are no items in the database, check the cookies
@@ -87,7 +92,10 @@ export async function getCartItems() {
 
         // Fetch the cart items from the cookies
         const cartCookie = cookies().get("cart");
-        const cartFromCookie: ProductCart[] = cartCookie ? JSON.parse(cartCookie.value) : [];
+        console.log(cartCookie);
+        const cartFromCookie: ProductCart[] = cartCookie && cartCookie.value ? JSON.parse(cartCookie.value) : [];
+
+        // const cartFromCookie: ProductCart[] = cartCookie ? JSON.parse(cartCookie.value) : [];
 
         // Merge cart items from database and cookie
         const mergedCartItems = handleMergeArray(cartItemsFromDB, cartFromCookie);
@@ -125,8 +133,10 @@ export async function getCartItems() {
 }
 
 export async function addToCart(productId: number) {
-    if (userId === 1) {
-        const existingCart = await getOrCreateCart();
+    const userId = await userid();
+
+    if (userId) {
+        const existingCart = await getOrCreateCart(userId);
         if (cookies().get("cart")) {
             cookies().delete("cart");
         }
@@ -177,6 +187,7 @@ export async function addToCart(productId: number) {
 
         cookies().set("cart", JSON.stringify(cart));
     }
-    revalidatePath('/', 'layout')
-    return {message:"Added to cart successfully" }
+
+    revalidatePath('/');
+    return { message: "Added to cart successfully" };
 }
