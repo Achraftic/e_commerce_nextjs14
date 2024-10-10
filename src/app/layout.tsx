@@ -10,8 +10,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "PetSoft -Pet daycare software",
-  description: "Take care of people's pets responsibly with PetSoft",
+  title: "ElectroHub",
+  description: "ElectroHub is a dynamic and user-friendly e-commerce platform specializing in electronic products. ",
 };
 
 export default function RootLayout({

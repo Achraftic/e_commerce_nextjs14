@@ -99,7 +99,7 @@ export async function getCartItems() {
 
         // Merge cart items from database and cookie
         const mergedCartItems = handleMergeArray(cartItemsFromDB, cartFromCookie);
-        console.log(mergedCartItems);
+      
 
         // Loop through each merged cart item and update its quantity in the database
         await Promise.all(

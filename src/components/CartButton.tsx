@@ -26,7 +26,7 @@ export default async function CartButton() {
         _count: { id: true },
     
     })
-console.log(_count,session?.user?.id)
+
 
     return (
         <>
