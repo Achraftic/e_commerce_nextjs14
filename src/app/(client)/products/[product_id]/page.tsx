@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { CiStar } from "react-icons/ci";
 import ButtonAddToCart from '@/components/ButtonAddToCart';
 import { Input } from '@/components/ui/input';
-import { SimilarProducts } from '@/components/SmilarProducts';
+import { SimilarProducts } from '@/components/SimilarProducts';
 export default async function OneProductPage({ params }: { params: { product_id: string } }) {
   const product = await prisma.product.findUnique({
     where:

@@ -66,7 +66,7 @@ export const authConfig = {
       const userRole = token?.user?.role; // Ensure role is included in token
       if (userRole === "admin") {
         // Admin can access all URLs
-        return callbackUrl || `${baseUrl}/`;
+        return callbackUrl || `${baseUrl}/dashboard`;
       } else {
         // Redirect non-admin users to a specific page
         return callbackUrl || `${baseUrl}/`; // Change this to your unauthorized page

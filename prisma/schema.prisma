@@ -40,6 +40,7 @@ model User {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   cartId         Int?
+  role           String          @default("user")
   accounts       Account[]
   Authenticator  Authenticator[]
   sessions       Session[]

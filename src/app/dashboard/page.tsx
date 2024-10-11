@@ -1,7 +1,7 @@
-import React from 'react'
-
-export default function Dashboard() {
+"use client";
+import Hero from "@/components/dashboard/Hero";
+export default function Dahsboard() {
   return (
-    <div>Dashboard</div>
-  )
+    <Hero/>
+  );
 }

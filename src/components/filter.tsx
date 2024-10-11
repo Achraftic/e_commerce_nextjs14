@@ -9,10 +9,10 @@ import { Category } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 
 
-export default function Filter({ categories, searchParams }: { categories: Category[], searchParams: { category?: string, price?: string } }) {
+export default function Filter({ categories, searchParams }: { categories: Category[], searchParams: { category?: string, price: string } }) {
     const categorySearched = searchParams.category?.split(",").filter(Boolean)
     const [selectedCategories, setSelectedCategories] = useState<string[]>(categorySearched || []);
-    const [price, setPrice] = useState<number | null>(+searchParams.price || 0);
+    const [price, setPrice] = useState<number | null>(+searchParams!.price || 0);
     const router = useRouter();
     
 

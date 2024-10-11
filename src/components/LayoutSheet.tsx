@@ -13,19 +13,8 @@ import { MdFilterList } from "react-icons/md"
 import Filter from "./filter"
 import prisma from "../../prisma/db"
 
-export async function FilterProduct({ searchParams }: {
-    searchParams: {
-        category: string
-        price: string
+export async function LayoutSheet({ children }: { children: React.ReactNode }) {
 
-    }
-}) {
-    const categories = await prisma.category.findMany({
-        select: {
-            name: true,
-            id: true,
-        }
-    })
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -39,7 +28,7 @@ export async function FilterProduct({ searchParams }: {
                     <SheetTitle>Filter By</SheetTitle>
                 </SheetHeader>
 
-                <Filter categories={categories} searchParams={searchParams} />
+                {children}
                 <SheetFooter>
                     <SheetClose asChild>
                         <Button type="submit">Save changes</Button>
