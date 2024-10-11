@@ -56,7 +56,7 @@ export default function Filter({ categories, searchParams }: { categories: Categ
                                 type="checkbox"
                                 checked={selectedCategories.includes(category.name)}
                                 onChange={() => handleFilterByCategory(category.name)}
-                                className="w-4 h-3"
+                                className="w-4 h-3 cursor-pointer"
                             />
                             <Label>{category.name}</Label>
                         </div>

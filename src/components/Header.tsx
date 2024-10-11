@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import CartButton from './CartButton'
-import { auth, signOut } from '@/auth.config'
+import { auth } from '@/auth.config'
 import Image from 'next/image';
 import { DropDown } from './DropDown';
 
@@ -29,7 +29,7 @@ export default async function Header() {
         <li className=" hover:text-primary transition duration-200">Pricing </li>
       </ul>
 
-      <ul className="space-x-3  hidden md:flex  items-center">
+      <ul className="space-x-3  flex">
 
         {session?.user ?
           <DropDown>

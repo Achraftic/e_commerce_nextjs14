@@ -20,7 +20,7 @@ export default function ButtonAddToCart({ product_id }: { product_id: number }) 
     }
     return (
 
-        <Button onClick={handleAddToCart} className='w-max px-8 '>
+        <Button onClick={handleAddToCart} className='w-max group-hover:bg-zinc-100 group-hover:text-zinc-900 px-5 '>
             {isPending ? <>  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
                 Please wait</> : <>
                 <FaCartPlus className="mr-2 h-4 w-4" /> Add to Cart

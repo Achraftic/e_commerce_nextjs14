@@ -1,8 +1,12 @@
-import { ReloadIcon } from '@radix-ui/react-icons'
+
 import React from 'react'
+import { AiOutlineLoading } from 'react-icons/ai'
 
 export default function Loading() {
   return (
-    <ReloadIcon className=" h-20 w-40 animate-spin" />
+    <div className='h-[80vh] w-full grid place-items-center'>
+
+       <AiOutlineLoading className=" text-primary  h-16 w-16 animate-spin" />
+    </div>
   )
 }
