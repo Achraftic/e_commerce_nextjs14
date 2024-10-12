@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function Hero() {
   return (
-    <div className=' basis-full   rounded-2xl grid  grid-rows-[repeat(5,300px)] lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-3 p-3'>
+    <div className=' basis-full  bg-zinc-50  rounded-2xl grid  grid-rows-[repeat(5,300px)] lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-3 p-3'>
 
       <div className='bg-blue-100 '>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">

@@ -1,5 +1,5 @@
 "use server"
-import { signIn } from "@/auth.config";
+import { signIn, signOut } from "@/auth.config";
 import { LoginAuthSchema, SignUpAuthSchema } from "@/shema/shema";
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
@@ -83,4 +83,8 @@ export async function SignUp(formData: unknown) {
 
 export async function LoginWithGoogle() {
     await signIn("google")
+}
+export async function Logout() {
+    await signOut()
+    redirect("/login")
 }
