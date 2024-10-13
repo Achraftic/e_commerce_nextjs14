@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { CiSearch } from "react-icons/ci"
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "@radix-ui/react-icons"
+import Link from "next/link"
 
 // Assuming categories are passed as props or come from the data
 interface DataTableProps<TData, TValue> {
@@ -49,7 +50,7 @@ export function DataTable<TData, TValue>({
             placeholder="Search..."
             value={globalFilter}
             onChange={(event) => setGlobalFilter(event.target.value)}
-            className="max-w-xs w-60 border border-zinc-300 "
+            className="max-w-xs h-8 w-60 border border-zinc-300 "
 
           />
           <CiSearch className=" absolute right-2 text-zinc-500    top-2" size={18} />
@@ -57,7 +58,9 @@ export function DataTable<TData, TValue>({
 
 
         </div>
-        <Button>Add Product <PlusIcon className="ml-2" scale={15}/> </Button>
+        <Button asChild className="h-7 text-xs px-2"> 
+          <Link href="/dashboard/products/add"><PlusIcon className="mr-1" scale={15}/> Add Product</Link> 
+           </Button>
       </div>
 
 

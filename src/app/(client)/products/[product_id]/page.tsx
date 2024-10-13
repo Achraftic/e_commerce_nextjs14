@@ -10,14 +10,9 @@ export default async function OneProductPage({ params }: { params: { product_id:
   const product = await prisma.product.findUnique({
     where:
       { id: Number(params.product_id) },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      price: true,
-      stock: true,
-      Category: true
-    }
+   include:{
+    Category:true
+   }
   })
   return (
     <div>
@@ -27,7 +22,7 @@ export default async function OneProductPage({ params }: { params: { product_id:
 
         <div className=' p-12 md:shrink  bg-primary rounded-md  '>
 
-          <Image src={img3} width={280} height={280} alt="ps4" className="   " />
+          <Image src={product!.imageUrl ? product!.imageUrl : img3} width={280} height={280} alt="ps4" className="   " />
         </div>
         <div className='  flex flex-col flex-1 gap-2 px-5  '>
 

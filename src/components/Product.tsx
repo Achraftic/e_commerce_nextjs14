@@ -14,7 +14,7 @@ export default function Product({product}:{product:ProductsType}) {
             <CiHeart className=" group-hover:text-white text-2xl cursor-pointer absolute z-50 right-2 top-2 text-primary" />
             <Link href={"/products/" + product.id} className='cursor-pointer'>
 
-                <Image width={150} height={150} src={img3} priority={false} alt="ps4" className="m-auto my-4" />
+                <Image width={150} height={150} src={product.imageUrl ? product.imageUrl : img3} priority={false} alt="ps4" className="m-auto my-4" />
             </Link>
             <div>
                 <h1 className="text-xl font-semibold text-zinc-800 group-hover:text-zinc-100">{product.name}</h1>
