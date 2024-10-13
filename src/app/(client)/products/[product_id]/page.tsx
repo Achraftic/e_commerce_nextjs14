@@ -20,16 +20,16 @@ export default async function OneProductPage({ params }: { params: { product_id:
 
       <div className='flex mb-10 md:flex-nowrap justify-center  flex-wrap p-5 items-center  max-w-6xl m-auto  md:gap-2 gap-10 '>
 
-        <div className=' p-12 md:shrink  bg-primary rounded-md  '>
+        <div className=' p-12 md:shrink    bg-primary rounded-md  '>
 
-          <Image src={product!.imageUrl ? product!.imageUrl : img3} width={280} height={280} alt="ps4" className="   " />
+          <Image src={product!.imageUrl ? product!.imageUrl : img3} width={300} height={300} alt="ps4" className="   " />
         </div>
         <div className='  flex flex-col flex-1 gap-2 px-5  '>
 
 
           <div>
             <p className='text-zinc-400/80 text-xs px-1 '>{product?.Category?.name} </p>
-            <h1 className=' lg:text-6xl text-5xl font-semibold'>{product?.name} </h1>
+            <h1 className='  text-5xl font-semibold'>{product?.name} </h1>
 
           </div>
 

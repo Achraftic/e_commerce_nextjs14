@@ -33,5 +33,5 @@ export const productSchema = z.object({
   stock: z.number().int().positive("Stock must be a positive integer"),
   description: z.string().min(1, "Description is required"),
   category: z.string().min(1, "Category is required"),
-  image: z.instanceof(File).optional(),
+  image: z.union([z.instanceof(File), z.string()]).optional()
 })

@@ -8,6 +8,8 @@ import { ProductsType } from "@/types/type"
 import Image from "next/image"
 
 import img3 from "@/public/images_product/pngwing.com.png";
+import Link from "next/link"
+import { deleteProduct } from "@/actions/productsAction"
 
 // Define the ProductsType structure
 
@@ -119,11 +121,13 @@ export const columns: ColumnDef<ProductsType>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem asChild> 
+                            <Link href={`/dashboard/products/edit/${product.id}`}>Edit</Link>
+                             </DropdownMenuItem>
                         <DropdownMenuItem>View</DropdownMenuItem>
                         <DropdownMenuItem
                         className="text-red-400 hover:text-red-500 "
-                            onClick={() => navigator.clipboard.writeText(product.id.toString())}
+                            onClick={async () => await deleteProduct(product.id)}
                         >
                            Delete
                         </DropdownMenuItem>
