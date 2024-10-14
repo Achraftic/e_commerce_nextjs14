@@ -147,3 +147,16 @@ export const getCategories = async () => {
         }
     })
 }
+
+export const getLastestProducts = async () => {
+    const products = await prisma.product.findMany({
+        include:{
+            Category:true
+        },
+        orderBy:{
+            createdAt: 'desc'
+        },
+        take:6
+    })
+    return products
+}

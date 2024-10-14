@@ -21,7 +21,7 @@ export default function Product({product}:{product:ProductsType}) {
                 <h4 className='text-zinc-400  group-hover:text-zinc-300'>{product.Category?.name}</h4>
             </div>
 
-            <div className="flex items-center gap-4 text-zinc-800 group-hover:text-zinc-50 justify-between">
+            <div className="flex  flex-wrap items-center gap-4 text-zinc-800 group-hover:text-zinc-50 justify-between">
                 <h4 className="text-lg font-semibold">${parseFloat(product.price.toString()).toFixed(2)} </h4>
 
                 <ButtonAddToCart product_id={product.id} />

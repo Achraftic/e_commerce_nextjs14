@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 import { FaCartPlus } from 'react-icons/fa'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { toast } from 'sonner'
+import { AiOutlineLoading } from 'react-icons/ai'
 
 
 export default function ButtonAddToCart({ product_id }: { product_id: number }) {
@@ -20,10 +21,10 @@ export default function ButtonAddToCart({ product_id }: { product_id: number }) 
     }
     return (
 
-        <Button onClick={handleAddToCart} className='w-max group-hover:bg-zinc-100 group-hover:text-zinc-900 px-5 '>
-            {isPending ? <>  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+        <Button onClick={handleAddToCart} className='  group-hover:bg-zinc-100 group-hover:text-zinc-900 '>
+            {isPending ? <>  <AiOutlineLoading className="mr-2  animate-spin"  size={20} />
                 Please wait</> : <>
-                <FaCartPlus className="mr-2 h-4 w-4" /> Add to Cart
+                <FaCartPlus className="mr-2 "  size={15}/> Add to Cart
             </>}
 
 
