@@ -11,6 +11,7 @@ import { PiImageSquareLight } from 'react-icons/pi'
 import { Category, Product } from '@prisma/client'
 import { AddProduct, editProduct, getCategories } from '@/actions/productsAction'
 import { ProductsType } from '@/types/type'
+import SubmitBtn from './SubmitBtn'
 
 
 type ProductForm = {
@@ -23,6 +24,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
     const [image, setImage] = useState<File | null>(null)  // State for storing the image file
     const [isUploading, setIsUploading] = useState<boolean>(false)  // State for upload progress
     const [categories, setCategories] = useState<Category[]>([])
+
     const handleSubmit = async (formData: FormData) => {
         const productData = Object.fromEntries(formData.entries());
         const parsedData = {
@@ -176,9 +178,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
 
                 {/* Submit Button */}
                 <div className='col-span-3 justify-end flex'>
-                    <Button type="submit" className="btn-primary py-2 px-5 bg-primary text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring">
-                        Submit
-                    </Button>
+                  <SubmitBtn/>
                 </div>
             </form >
         </>

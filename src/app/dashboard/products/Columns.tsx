@@ -22,15 +22,21 @@ export const columns: ColumnDef<ProductsType>[] = [
                 checked={
                     table.getIsAllPageRowsSelected() ||
                     (table.getIsSomePageRowsSelected() && "indeterminate")
+
                 }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                onCheckedChange={(value) => {table.toggleAllPageRowsSelected(!!value)
+                    
+                }}
                 aria-label="Select all"
             />
         ),
         cell: ({ row }) => (
             <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                checked={row.getIsSelected()} // Boolean value expected here
+                onCheckedChange={(value) => {
+                    row.toggleSelected(!!value);
+                    console.log(row.original); 
+                }}
                 aria-label="Select row"
             />
         ),
@@ -41,7 +47,7 @@ export const columns: ColumnDef<ProductsType>[] = [
         accessorKey: "imageUrl",
         header: "Image",
         cell: ({ row }) => {
-            
+
             return <Image src={row.getValue("imageUrl") || img3} alt="Product Image" width={30} height={30} />
         },
     },
@@ -58,7 +64,7 @@ export const columns: ColumnDef<ProductsType>[] = [
             </Button>
         ),
         cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
-        
+
     },
     {
         accessorKey: "Category.name", // Category Name
@@ -82,7 +88,7 @@ export const columns: ColumnDef<ProductsType>[] = [
             </Button>
         ),
         cell: ({ row }) => <div>{row.getValue("stock")}</div>,
-       
+
     },
     {
         accessorKey: "price",
@@ -95,7 +101,7 @@ export const columns: ColumnDef<ProductsType>[] = [
             }).format(price)
             return <div>{formatted}</div>
         },
-        
+
     },
     {
         accessorKey: "createdAt",
@@ -105,7 +111,7 @@ export const columns: ColumnDef<ProductsType>[] = [
             return <div>{date.toLocaleDateString()}</div>
         },
     },
-    
+
     {
         id: "actions",
         enableHiding: false,
@@ -121,17 +127,17 @@ export const columns: ColumnDef<ProductsType>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem asChild> 
+                        <DropdownMenuItem asChild>
                             <Link href={`/dashboard/products/edit/${product.id}`}>Edit</Link>
-                             </DropdownMenuItem>
+                        </DropdownMenuItem>
                         <DropdownMenuItem>View</DropdownMenuItem>
                         <DropdownMenuItem
-                        className="text-red-400 hover:text-red-500 "
+                            className="text-red-400 hover:text-red-500 "
                             onClick={async () => await deleteProduct(product.id)}
                         >
-                           Delete
+                            Delete
                         </DropdownMenuItem>
-                       
+
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

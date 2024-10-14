@@ -25,9 +25,9 @@ model Cart {
   id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  userId    String
+  userId    String?    
   cartItems CartItem[]
-  User      User[]
+  User      User?      @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -39,12 +39,11 @@ model User {
   hashedPassword String?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
-  cartId         Int?
   role           String          @default("user")
   accounts       Account[]
   Authenticator  Authenticator[]
   sessions       Session[]
-  Cart           Cart?           @relation(fields: [cartId], references: [id])
+  carts          Cart[]
 }
 
 model Account {
@@ -104,8 +103,8 @@ model CartItem {
   quantity  Int
   productId Int
   cartId    Int
-  cart      Cart    @relation(fields: [cartId], references: [id])
-  product   Product @relation(fields: [productId], references: [id])
+  cart      Cart    @relation(fields: [cartId], references: [id],onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([cartId, productId])
 }

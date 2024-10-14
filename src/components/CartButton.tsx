@@ -13,19 +13,10 @@ import {
 import { Button } from './ui/button'
 import CartList from './CartList'
 import { auth } from '@/auth.config'
+import { getCartItems } from '@/actions/action'
 export default async function CartButton() {
-    const session = await auth();
-    const { _count } = await prisma.cartItem.aggregate({
-        where: {
-            cart: {
-                userId: session?.user?.id || '',
-               
-            }
-        },
-        
-        _count: { id: true },
-    
-    })
+    const count =  (await getCartItems())?.length || 0
+
 
 
     return (
@@ -40,17 +31,18 @@ export default async function CartButton() {
                         </svg>
 
                         <span className="flex  items-center -right-3 -top-3 justify-center w-5 h-5 bg-primary   text-white rounded-full  text-[9px] absolute">
-                            {_count.id}
+                            {count}
                         </span>
                     </div>
                 </SheetTrigger>
-                <SheetContent className='w-[400px]'>
+                <SheetContent className='w-[400px] overflow-y-scroll overflow-x-hidden'>
                     <SheetHeader>
                         <SheetTitle>Shopping Cart</SheetTitle>
-                      
+
                     </SheetHeader>
-                  
-                  <CartList/>
+
+                    {/*// ? cart list here */}
+                    <CartList />
 
                     <SheetFooter>
                         <SheetClose asChild>

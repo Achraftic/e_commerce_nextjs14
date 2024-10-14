@@ -6,139 +6,137 @@ import prisma from "../../prisma/db";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth.config";
 
-export type ProductCart = {
-    id: number;
-    name: string;
-    price: number;
-    stock: number;
-    quantity: number;
-};
 
-async function userid() {
+
+async function getUserId() {
     const session = await auth();
     return session?.user?.id;
 }
 
 async function getOrCreateCart(userId: string) {
-    let existingCart = await prisma.cart.findFirst({
-        where: { userId },
-    });
+    let existingCart = await prisma.cart.findFirst({ where: { userId } });
 
     // Create a cart if it doesn't exist
     if (!existingCart) {
         existingCart = await prisma.cart.create({
             data: {
-                userId: userId,
-                User: {
-                    connect: {
-                        id: userId,
-                    },
-                },
+                User: { connect: { id: userId } },
             },
         });
     }
     return existingCart;
 }
 
+async function getOrCreateCartForAnonymous() {
+    const cartIdFromCookie = cookies().get("cartid");
+
+    if (cartIdFromCookie) {
+        return JSON.parse(cartIdFromCookie.value);
+    }
+
+    try {
+        const newCart = await prisma.cart.create({ data: { userId: null } });
+        cookies().set("cartid", JSON.stringify(newCart.id), { path: '/' });
+        console.log('Cart created:', newCart);
+        return newCart.id;
+    } catch (error) {
+        console.error('Error creating cart:', error);
+        throw error;
+    }
+}
+
 async function fetchCartItems(cartId: number) {
     return await prisma.cartItem.findMany({
         where: { cartId },
         select: {
-            product: true,
             quantity: true,
+            product: {
+                select: {
+                    id: true,
+                    name: true,
+                    price: true,
+                    stock: true,
+                    imageUrl: true,
+                },
+            },
         },
     });
 }
 
-export async function getCartItems() {
-    const userId = await userid();
+async function handleAnonymousCart(existingCartId: number, existingCartItems: any[]) {
+    console.log("lisstenning to anonymous cart");
+    const cartCookie = cookies().get("cartid");
 
-    if (userId) {
-        const existingCart = await getOrCreateCart(userId);
-        let existingCartItems = await fetchCartItems(existingCart.id);
+    if (cartCookie) {
+        const idCart = JSON.parse(cartCookie.value);
+        const cartFromCookie = await fetchCartItems(idCart);
 
-        // If there are no items in the database, check the cookies
-        if (existingCartItems.length === 0) {
-            const cartCookie = cookies().get("cart");
-            if (cartCookie) {
-                const cartFromCookie: ProductCart[] = JSON.parse(cartCookie.value) || [];
+        const mergedCartItems = handleMergeArray(cartFromCookie, existingCartItems);
 
-                // Add items from the cookie to the database
-                await Promise.all(
-                    cartFromCookie.map(async (item: ProductCart) => {
-                        return await prisma.cartItem.create({
-                            data: {
-                                quantity: item.quantity,
-                                productId: item.id,
-                                cartId: existingCart.id,
-                            },
-                        });
-                    })
-                );
+        console.log("from cookie", cartFromCookie);
+        console.log("from server", existingCartItems);
+        console.log("from server", mergedCartItems);
 
-                // Fetch the updated cart items from the database
-                existingCartItems = await fetchCartItems(existingCart.id);
-            }
-        }
-
-        // Map the database items to the format of ProductCart[]
-        const cartItemsFromDB: ProductCart[] = existingCartItems.map(item => ({
-            id: item.product.id,
-            name: item.product.name,
-            price: item.product.price,
-            stock: item.product.stock,
-            quantity: item.quantity,
-        }));
-
-        // Fetch the cart items from the cookies
-        const cartCookie = cookies().get("cart");
-        console.log(cartCookie);
-        const cartFromCookie: ProductCart[] = cartCookie && cartCookie.value ? JSON.parse(cartCookie.value) : [];
-
-        // const cartFromCookie: ProductCart[] = cartCookie ? JSON.parse(cartCookie.value) : [];
-
-        // Merge cart items from database and cookie
-        const mergedCartItems = handleMergeArray(cartItemsFromDB, cartFromCookie);
-      
-
-        // Loop through each merged cart item and update its quantity in the database
         await Promise.all(
             mergedCartItems.map(async (item) => {
                 await prisma.cartItem.upsert({
                     where: {
                         cartId_productId: {
-                            cartId: existingCart.id,
-                            productId: item.id,
+                            cartId: existingCartId,
+                            productId: item.product.id,
                         },
                     },
                     update: {
                         quantity: item.quantity,
                     },
                     create: {
-                        cartId: existingCart.id,
-                        productId: item.id,
+                        cartId: existingCartId,
+                        productId: item.product.id,
                         quantity: item.quantity,
                     },
                 });
             })
         );
+        // if(idCart){
 
-        return mergedCartItems;
+        //     await prisma.cart.delete({ where: { id: idCart  } });
+        // }
+    }
+}
 
+export async function getCartItems() {
+    const userId = await getUserId();
+
+    if (userId) {
+        const existingCart = await getOrCreateCart(userId);
+        const existingCartItems = await fetchCartItems(existingCart.id);
+
+        if (existingCartItems.length !== 0) {
+            await handleAnonymousCart(existingCart.id, existingCartItems);
+        }
+       
+
+        return existingCartItems;
     } else {
-        // Handle the case for non-authenticated users
-        const cartCookie = cookies().get("cart");
-        return cartCookie ? JSON.parse(cartCookie.value) : [];
+        const cartCookie = cookies().get("cartid");
+
+        if (cartCookie) {
+            const idCart = JSON.parse(cartCookie.value);
+            return await fetchCartItems(idCart);
+        }
     }
 }
 
 export async function addToCart(productId: number) {
-    const userId = await userid();
+    const userId = await getUserId();
 
     if (userId) {
         const existingCart = await getOrCreateCart(userId);
-        if (cookies().get("cart")) {
-            cookies().delete("cart");
+        const cartIdFromCookie = cookies().get("cartid");
+
+        if (cartIdFromCookie) {
+            await prisma.cart.delete({ where: { id: JSON.parse(cartIdFromCookie.value) } });
+            cookies().delete("cartid");
         }
 
         await prisma.cartItem.upsert({
@@ -157,35 +155,28 @@ export async function addToCart(productId: number) {
             },
         });
     } else {
-        // Non-authenticated user case
-        const product = await prisma.product.findUnique({
-            where: { id: productId },
-        });
+        const product = await prisma.product.findUnique({ where: { id: productId } });
 
         if (!product) {
             throw new Error(`Product with ID ${productId} not found`);
         }
 
-        const productInfo: ProductCart = {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            stock: product.stock,
-            quantity: 1,
-        };
-
-        const cartCookie = cookies().get("cart");
-        const cart = cartCookie ? JSON.parse(cartCookie.value) : [];
-
-        // Update the cart in cookies
-        const existingProductIndex = cart.findIndex((item: ProductCart) => item.id === product.id);
-        if (existingProductIndex !== -1) {
-            cart[existingProductIndex].quantity += 1;
-        } else {
-            cart.push(productInfo);
-        }
-
-        cookies().set("cart", JSON.stringify(cart));
+        const cartId = await getOrCreateCartForAnonymous();
+        await prisma.cartItem.upsert({
+            where: {
+                cartId_productId: { cartId, productId },
+            },
+            create: {
+                cartId,
+                productId,
+                quantity: 1,
+            },
+            update: {
+                quantity: {
+                    increment: 1,
+                },
+            },
+        });
     }
 
     revalidatePath('/');

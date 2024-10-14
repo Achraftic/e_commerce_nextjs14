@@ -124,10 +124,26 @@ export const editProduct = async (data: FormData, id: number) => {
 };
 
 export const deleteProduct = async (id: number) => {
-    await prisma.product.delete({ where: { id: id } });
-    revalidatePath("/dashboard/products");
+    console.log(id)
+    try{
+
+        await prisma.product.delete({ where: { id: id } });
+        revalidatePath("/dashboard/products");
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 export const getCategories = async () => {
     const categories = await prisma.category.findMany();
     return categories;
+}
+ const delteMultipleProduct = async () => {
+    const products = await prisma.product.deleteMany({
+        where:{
+            id:{
+                in:[1,2,3]
+            }
+        }
+    })
 }

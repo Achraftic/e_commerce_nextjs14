@@ -1,28 +1,41 @@
-import { ProductCart } from "@/actions/action";
 
-export function handleMergeArray(array1: ProductCart[], array2: ProductCart[]) {
-    // Combine both arrays into one
-    const combinedArray = [...array1, ...array2];
+import { CartItemsType } from "@/types/type";
 
-    // Use reduce to merge items with the same id
-    const mergedArray = combinedArray.reduce((acc, item) => {
-        // Find if the product already exists in the accumulator
-        const existingProduct = acc.find(i => i.id === item.id);
+export function handleMergeArray(array1: CartItemsType[], array2: CartItemsType[]): CartItemsType[] {
+    // Create a map to hold merged cart items
+    const mergedMap = new Map<number, CartItemsType>();
 
-        if (existingProduct) {
-            // If found, add the quantity
-            existingProduct.quantity += item.quantity;
-        } else {
-            // If not found, push the new product
-            acc.push({ ...item });
+    // Helper function to add items to the map
+    const addItemsToMap = (array: CartItemsType[]) => {
+        for (const item of array) {
+            const productId = item.product.id;
+            console.log(`Processing item: ${JSON.stringify(item)}`);
+
+            if (mergedMap.has(productId)) {
+                // If the product already exists, add the quantity
+                const existingItem = mergedMap.get(productId)!; // Non-null assertion since we checked for existence
+                existingItem.quantity += item.quantity;
+                console.log(`Merged item with id ${productId}: new quantity ${existingItem.quantity}`);
+            } else {
+                // If not found, add the new product
+                mergedMap.set(productId, { ...item });
+                console.log(`Added new item with id ${productId}: quantity ${item.quantity}`);
+            }
         }
+    };
 
-        return acc;
-    }, [] as ProductCart[]); // Specify the type for the accumulator
+    // Add both arrays to the map
+    addItemsToMap(array1);
+    addItemsToMap(array2);
+
+    // Convert the map values back to an array
+    const mergedArray = Array.from(mergedMap.values());
+    console.log(`Merged array: ${JSON.stringify(mergedArray)}`);
 
     return mergedArray;
 }
 
+
 export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
+}
