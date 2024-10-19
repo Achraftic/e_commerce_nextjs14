@@ -3,20 +3,20 @@ import React from 'react';
 import img3 from "@/public/images_product/pngwing.com.png";
 import Image from 'next/image';
 import { Input } from './ui/input';
-import { Product } from '@prisma/client';
-import { CartItemsType } from '@/types/type';
+import { cn } from '@/lib/utils';
+;
 
-export default async function CartList() {
+export default async function CartList({className}:{className?:string}) {
   const cartItems= await getCartItems();
   const total = cartItems?.reduce((acc: number, item) => acc + item.product.price * item.quantity, 0);
 
   return (
 
-    <div>
-      <div className='grid gap-4 mt-10'>
+    <div className={`${cn(className)}`}>
+      <div className='grid gap-4 mt-10  '>
         {cartItems?.length ? (
           cartItems.map((item, index: number) => (
-            <div key={index} className="flex items-center gap-5 py-3 text-lg">
+            <div key={index} className="flex items-center justify-between gap-5 py-3 text-lg">
               <div className='flex gap-4 items-center'>
                 <Image width={45} height={45} src={item.product.imageUrl ? item.product.imageUrl : img3} alt={item.product.name} />
                 <h2 className='text-sm w-32'>{item.product.name}</h2>

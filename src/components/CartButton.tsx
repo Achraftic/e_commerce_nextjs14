@@ -1,6 +1,4 @@
 import React from 'react'
-import prisma from '../../prisma/db'
-
 import {
     Sheet,
     SheetClose,
@@ -12,10 +10,10 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from './ui/button'
 import CartList from './CartList'
-import { auth } from '@/auth.config'
 import { getCartItems } from '@/actions/action'
+import Link from 'next/link'
 export default async function CartButton() {
-    const count =  (await getCartItems())?.length || 0
+    const count = (await getCartItems())?.length || 0
 
 
 
@@ -46,7 +44,10 @@ export default async function CartButton() {
 
                     <SheetFooter>
                         <SheetClose asChild>
-                            <Button type="submit">Save changes</Button>
+                            <Button asChild type="submit">
+                                <Link href="/checkout">Checkout</Link>
+
+                            </Button>
                         </SheetClose>
                     </SheetFooter>
                 </SheetContent>

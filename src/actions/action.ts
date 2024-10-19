@@ -5,6 +5,7 @@ import { handleMergeArray } from "@/utils/utils";
 import prisma from "../../prisma/db";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth.config";
+import { CartItemsType } from "@/types/type";
 
 
 
@@ -28,7 +29,8 @@ async function getOrCreateCart(userId: string) {
 }
 
 async function getOrCreateCartForAnonymous() {
-    const cartIdFromCookie = cookies().get("cartid");
+    const Cookies=await cookies()
+    const cartIdFromCookie = Cookies.get("cartid");
 
     if (cartIdFromCookie) {
         return JSON.parse(cartIdFromCookie.value);
@@ -36,7 +38,7 @@ async function getOrCreateCartForAnonymous() {
 
     try {
         const newCart = await prisma.cart.create({ data: { userId: null } });
-        cookies().set("cartid", JSON.stringify(newCart.id), { path: '/' });
+        Cookies.set("cartid", JSON.stringify(newCart.id), { path: '/' });
         console.log('Cart created:', newCart);
         return newCart.id;
     } catch (error) {
@@ -63,9 +65,10 @@ async function fetchCartItems(cartId: number) {
     });
 }
 
-async function handleAnonymousCart(existingCartId: number, existingCartItems: any[]) {
+async function handleAnonymousCart(existingCartId: number, existingCartItems: CartItemsType[]) {
+    const Cookies=await cookies()
     console.log("lisstenning to anonymous cart");
-    const cartCookie = cookies().get("cartid");
+    const cartCookie = Cookies.get("cartid");
 
     if (cartCookie) {
         const idCart = JSON.parse(cartCookie.value);
@@ -118,7 +121,8 @@ export async function getCartItems() {
 
         return existingCartItems;
     } else {
-        const cartCookie = cookies().get("cartid");
+        const Cookies=await cookies()
+        const cartCookie = Cookies.get("cartid");
 
         if (cartCookie) {
             const idCart = JSON.parse(cartCookie.value);
@@ -129,14 +133,14 @@ export async function getCartItems() {
 
 export async function addToCart(productId: number) {
     const userId = await getUserId();
-
+    const Cookies=await cookies()
     if (userId) {
         const existingCart = await getOrCreateCart(userId);
-        const cartIdFromCookie = cookies().get("cartid");
+        const cartIdFromCookie = Cookies.get("cartid");
 
         if (cartIdFromCookie) {
             await prisma.cart.delete({ where: { id: JSON.parse(cartIdFromCookie.value) } });
-            cookies().delete("cartid");
+            Cookies.delete("cartid");
         }
 
         await prisma.cartItem.upsert({

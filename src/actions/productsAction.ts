@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 
 
 export const fetchProducts = async (searchParams: { category?: string; price?: string }) => {
+    
     const categories = searchParams?.category ? searchParams.category.split(',').filter(Boolean) : [];
 
     const price = searchParams.price ? parseFloat(searchParams.price) : 0
@@ -37,7 +38,7 @@ export const fetchProducts = async (searchParams: { category?: string; price?: s
         },
     });
 
-    revalidatePath("/products");
+   
     return products;
 };
 

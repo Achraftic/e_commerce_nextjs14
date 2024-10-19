@@ -7,9 +7,10 @@ import ButtonAddToCart from '@/components/ButtonAddToCart';
 import { Input } from '@/components/ui/input';
 import { SimilarProducts } from '@/components/SimilarProducts';
 export default async function OneProductPage({ params }: { params: { product_id: string } }) {
+  const { product_id } =  params
   const product = await prisma.product.findUnique({
     where:
-      { id: Number(params.product_id) },
+      { id: Number(product_id) },
    include:{
     Category:true
    }

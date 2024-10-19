@@ -12,9 +12,10 @@ import { useRouter } from 'next/navigation';
 export default function Filter({ categories, searchParams }: { categories: Category[], searchParams: { category?: string, price: string } }) {
     const categorySearched = searchParams.category?.split(",").filter(Boolean)
     const [selectedCategories, setSelectedCategories] = useState<string[]>(categorySearched || []);
+
     const [price, setPrice] = useState<number | null>(+searchParams!.price || 0);
     const router = useRouter();
-    
+
 
 
     // Handle category selection
@@ -73,7 +74,7 @@ export default function Filter({ categories, searchParams }: { categories: Categ
                         step={1}
                         onValueChange={handlePriceChange}
                     />
-                    <p className='text-xs mt-2'>Selected Price: ${price===null?0:price}</p>
+                    <p className='text-xs mt-2'>Selected Price: ${price === null ? 0 : price}</p>
                 </div>
             </div>
         </form>

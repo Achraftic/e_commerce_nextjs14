@@ -16,10 +16,10 @@ const categories = [
 
 export default function BrowseByCategory() {
   return (
-    <div className="  my-20">
+    <div className="my-20">
       <H1 className="  mb-16">Browse by Category</H1>
 
-      <ul className="grid grid-cols-2 sm:grid-cols-5 gap-6 h-32">
+      <ul className="grid grid-cols-2 sm:grid-cols-5 gap-6 min-h-32">
         {categories.map((category, index) => (
           <li
             key={index}

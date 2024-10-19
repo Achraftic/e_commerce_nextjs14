@@ -44,10 +44,10 @@ export async function SimilarProducts({ category, id }: { category: number, id: 
       >
         <CarouselContent>
           {products.map((product, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <div className="p-1">
+            <CarouselItem key={index} className="md:basis-1/2  lg:basis-1/3">
+             
                 <Product product={product} />
-              </div>
+           
             </CarouselItem>
           ))}
         </CarouselContent>

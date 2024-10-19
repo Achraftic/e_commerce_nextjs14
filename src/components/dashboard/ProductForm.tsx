@@ -50,7 +50,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
             if (type === "edit" && product?.id) {
                 await editProduct(formData, product.id)
                 return;
-                
+
             }
             await AddProduct(formData);
         }
@@ -164,21 +164,21 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                     </div>
                     {
                         image && <>
-                            <Image src={image ? URL.createObjectURL(image) : ""} alt="Product Image" width={400} height={400} className='rounded-2xl mt-4' />
+                            <Image src={image ? URL.createObjectURL(image) : ""} alt="Product Image" width={200} height={200} className='rounded-2xl mt-4' />
                         </>
 
 
                     }
-                    {product?.imageUrl && 
-                    <>
-                        <Image src={product?.imageUrl} alt="Product Image" width={400} height={400} className='rounded-2xl mt-4' />
-                    </>
+                    {product?.imageUrl &&
+                        <>
+                            <Image src={product?.imageUrl} alt="Product Image" width={200} height={200} className='rounded-2xl mt-4' />
+                        </>
                     }
                 </div>
 
                 {/* Submit Button */}
                 <div className='col-span-3 justify-end flex'>
-                  <SubmitBtn/>
+                    <SubmitBtn />
                 </div>
             </form >
         </>
