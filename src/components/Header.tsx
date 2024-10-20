@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import React from 'react'
 import CartButton from './CartButton'
-import { auth } from '@/auth.config'
+
 import Image from 'next/image';
 import { DropDown } from './DropDown';
+import { IoChevronForward } from 'react-icons/io5';
+import ImageProfile from './ImageProfile';
 
 
 export default async function Header() {
-  const session = await auth()
+
 
   return (
     <header className="flex justify-between items-center py-5 px-10 text-sm  text-black">
@@ -31,23 +33,13 @@ export default async function Header() {
 
       <ul className="space-x-3  flex">
 
-        {session?.user ?
-          <DropDown>
-            <Image src={session?.user?.image as string} width={30} height={30} alt="user image" className='rounded-full  cursor-pointer' />
-          </DropDown>
-          :
-          <Link href="/signin" className="bg-slate-400 cursor-pointer  bg font-semibold group  bg-opacity-10 rounded-full w-max px-3 py-2 flex items-center space-x-2 ">Sign in
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-3 font-semibold group-hover:translate-x-1 transition duration-100 ">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
-          </Link>
+        <ImageProfile/>
 
-        }
-
-        <a className="bg-slate-400 cursor-pointer font-semibold  block px-2 py-2 rounded-full  bg-opacity-10"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4  ">
+        {/* <a className="bg-slate-400 cursor-pointer font-semibold  block px-2 py-2 rounded-full  bg-opacity-10"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4  ">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
         </svg>
-        </a>
+
+        </a> */}
 
 
         <CartButton />

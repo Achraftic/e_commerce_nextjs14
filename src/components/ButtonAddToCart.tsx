@@ -3,7 +3,6 @@ import { addToCart } from '@/actions/action'
 import React, { useTransition } from 'react'
 import { Button } from './ui/button'
 import { FaCartPlus } from 'react-icons/fa'
-import { ReloadIcon } from '@radix-ui/react-icons'
 import { toast } from 'sonner'
 import { AiOutlineLoading } from 'react-icons/ai'
 

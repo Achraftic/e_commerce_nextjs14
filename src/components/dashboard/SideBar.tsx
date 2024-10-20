@@ -1,14 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import {  FaCog, FaEnvelope } from "react-icons/fa";
 import {  RiNextjsFill } from "react-icons/ri";
 import { motion } from "framer-motion";
-import { VscListSelection } from "react-icons/vsc";
 import Link from "next/link";
-import Logoutbtn from "../auth/Logoutbtn";
-import { GoGraph, GoHome } from "react-icons/go";
+import {  GoGraph, GoHome } from "react-icons/go";
 import { BsBoxSeam } from "react-icons/bs";
 import { PiShoppingCartSimple, PiShoppingCartSimpleLight } from "react-icons/pi";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 const dashboardLinks = [
     { name: "Dashboard", icon: <GoHome />, path: "/dashboard" },
@@ -27,12 +25,14 @@ export default function SideBar() {
     return (
         <motion.div
 
+
             initial={{ width: 0 }}
             animate={{ width: "fit-content" }}
             transition={{ duration: 0.3 }}
-            className="  sticky  h-screen   top-0 flex flex-col justify-center bg-transparent p-2"
+            className="  sticky  h-screen py-6   top-0 flex flex-col justify-center bg-transparent p-2"
         >
             {/* Sidebar Header */}
+            <IoChevronBackOutline size={15}  onClick={() => setToggle(!toggle)} className={`cursor-pointer absolute ${toggle &&"rotate-180"} max-md:hidden  top-3 text-zinc-500 right-0`} />
             <h1 className="flex mt-2 items-center gap-2 text-lg font-semibold md:w-full w-min mx-auto">
                 <motion.span layout>
                     <RiNextjsFill size={40} />
@@ -76,15 +76,7 @@ export default function SideBar() {
                 ))}
             </ul>
 
-            {/* Footer Links */}
-            <motion.span
-                layout
-                onClick={() => setToggle(!toggle)}
-                className="md:text-lg cursor-pointer block p-1.5 mb-3 md:rounded-md rounded-l-lg w-max text-xl"
-            >
-                <VscListSelection />
-            </motion.span>
-            <Logoutbtn/>
+       
         </motion.div>
     );
 }

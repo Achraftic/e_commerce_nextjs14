@@ -3,16 +3,15 @@ import React from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { CreateCommande } from '@/actions/checkoutAction';
 
 
 export default function CheckoutForm() {
-   
 
   return (
-    <form  className="space-y-6  flex-1 p-4 ">
+    <form action={CreateCommande} className="space-y-6  flex-1 p-4 ">
       {/* Shipping Information */}
       <h2 className="text-2xl  font-semibold text-zinc-800">Shipping Information</h2>
-
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="first-name">First Name</Label>
@@ -27,7 +26,7 @@ export default function CheckoutForm() {
 
       <div>
         <Label htmlFor="address">Address</Label>
-        <Input type="text" id="address" required placeholder="1234 Main St" />
+        <Input type="text" id="address" name='address' required placeholder="1234 Main St" />
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

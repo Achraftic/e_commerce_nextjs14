@@ -3,7 +3,6 @@ import logo from "@/public/image.png"
 import Image from 'next/image'
 import { Label } from '@radix-ui/react-label'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import GoogleBtn from "./GoogleBtn"
 import { logIn, SignUp } from "@/actions/authAction"

@@ -8,24 +8,25 @@ datasource db {
 }
 
 model Product {
-  id          Int        @id @default(autoincrement())
-  name        String
-  stock       Int        @default(0)
-  price       Float
-  description String?
-  imageUrl    String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  categoryId  Int?
-  cartItems   CartItem[]
-  Category    Category?  @relation(fields: [categoryId], references: [id])
+  id            Int             @id @default(autoincrement())
+  name          String
+  stock         Int             @default(0)
+  price         Float
+  description   String?
+  imageUrl      String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  categoryId    Int?
+  cartItems     CartItem[]
+  Category      Category?       @relation(fields: [categoryId], references: [id])
+  LigneCommande LigneCommande[]
 }
 
 model Cart {
   id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  userId    String?    
+  userId    String?
   cartItems CartItem[]
   User      User?      @relation(fields: [userId], references: [id])
 }
@@ -44,6 +45,7 @@ model User {
   Authenticator  Authenticator[]
   sessions       Session[]
   carts          Cart[]
+  Commande       Commande[]
 }
 
 model Account {
@@ -103,7 +105,7 @@ model CartItem {
   quantity  Int
   productId Int
   cartId    Int
-  cart      Cart    @relation(fields: [cartId], references: [id],onDelete: Cascade)
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([cartId, productId])
@@ -113,4 +115,31 @@ model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   products Product[]
+}
+
+model Commande {
+  id                Int             @id @default(autoincrement())
+  userId            String
+  date_commande     DateTime        @default(now())
+  statut            String
+  montant_total     Int
+  moyen_paiement    String
+  numero_commande   String          @unique @default(cuid())
+  adresse_livraison String
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  LigneCommande     LigneCommande[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model LigneCommande {
+  id          Int      @id @default(autoincrement())
+  productId   Int
+  CommandeId  Int
+  quantite    Int
+  total_ligne Int
+  ccreatedAt  DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  commande    Commande @relation(fields: [CommandeId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }

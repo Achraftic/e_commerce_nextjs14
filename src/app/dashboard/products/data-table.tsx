@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex justify-between items-center  mb-5">
+      <div className="flex flex-wrap gap-4 justify-between items-center  mb-5">
         <div className="relative w-max group" >
           <Input
             placeholder="Search..."

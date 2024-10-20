@@ -10,8 +10,6 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { MdFilterList } from "react-icons/md"
-import Filter from "./filter"
-import prisma from "../../prisma/db"
 
 export async function LayoutSheet({ children }: { children: React.ReactNode }) {
 

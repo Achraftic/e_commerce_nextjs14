@@ -2,7 +2,7 @@ import React from 'react';
 import H1 from './ui/h1'; // Assuming you have H1 component in your ui folder
 import { AiOutlineLaptop } from 'react-icons/ai';
 import { SlScreenSmartphone } from "react-icons/sl";
-import { CiCamera, CiHeadphones } from 'react-icons/ci';
+import {  CiHeadphones } from 'react-icons/ci';
 import { TbDeviceWatch } from "react-icons/tb";
 import { IoCameraOutline } from "react-icons/io5";
 // Define a list of categories with their names and corresponding icons

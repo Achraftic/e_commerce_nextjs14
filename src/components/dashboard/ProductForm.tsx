@@ -8,7 +8,7 @@ import { Label } from '@radix-ui/react-label'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { PiImageSquareLight } from 'react-icons/pi'
-import { Category, Product } from '@prisma/client'
+import { Category } from '@prisma/client'
 import { AddProduct, editProduct, getCategories } from '@/actions/productsAction'
 import { ProductsType } from '@/types/type'
 import SubmitBtn from './SubmitBtn'
@@ -84,7 +84,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
     return (
         <>
             <H1>{type === "add" ? "Add" : "Edit"} Products</H1>
-            <form action={handleSubmit} className='grid my-5 md:p-7 p-3 grid-cols-3 gap-3 items-center'>
+            <form action={handleSubmit} className='sm:grid flex flex-col my-5 md:p-5 p-0 grid-cols-3 gap-3 sm:items-center'>
                 {/* Name Input */}
                 <div className='gap-1 grid'>
                     <Label className='text-dark font-semibold'>Name</Label>

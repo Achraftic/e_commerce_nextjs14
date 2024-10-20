@@ -1,7 +1,4 @@
 import { Skeleton } from "@/components/ui/skeleton";
-
-
-
 export default function SkeletonList() {
     return (
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 place-items-center grid-row-3 md:grid-rows-2 gap-5">
