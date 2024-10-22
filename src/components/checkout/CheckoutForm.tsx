@@ -1,4 +1,4 @@
-// components/CheckoutForm.tsx
+
 import React from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
@@ -7,6 +7,7 @@ import { CreateCommande } from '@/actions/checkoutAction';
 
 
 export default function CheckoutForm() {
+
 
   return (
     <form action={CreateCommande} className="space-y-6  flex-1 p-4 ">

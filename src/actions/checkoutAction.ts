@@ -5,6 +5,7 @@ import prisma from "../../prisma/db";
 import { redirect } from "next/navigation";
 
 export const CreateCommande = async (formdata: FormData) => {
+    let message=""
     try {
         const address = formdata.get("address");
         const session = await auth();
@@ -14,7 +15,7 @@ export const CreateCommande = async (formdata: FormData) => {
         }
 
         const userId = session.user.id;
-        
+
         // Vérifiez si l'ID de l'utilisateur est défini avant de continuer
         if (!userId) {
             throw new Error("L'utilisateur n'est pas authentifié.");
@@ -73,16 +74,20 @@ export const CreateCommande = async (formdata: FormData) => {
                 })
             );
 
-            // Optionnel : vider le panier après création de la commande
             await tx.cartItem.deleteMany({
                 where: { cartId: cart.id }
             });
+            message="order created succussfully"
+
         });
-        console.log("from the serveur") 
-        redirect("/products")
+        console.log("from the serveur")
 
     } catch (error) {
+          message="Erreur lors de la création de la commande"
         console.error("Erreur lors de la création de la commande :", error);
-        // Gérer les erreurs, par exemple en renvoyant un message d'erreur à l'utilisateur
+    }
+    finally {
+      
+        redirect("/checkout/success")
     }
 };

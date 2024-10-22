@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs"
 
 import prisma from "../prisma/db";
 import { LoginAuthSchema } from "./shema/shema";
-import { use } from "react";
+
 
 
 export const authConfig = {
@@ -47,7 +47,7 @@ export const authConfig = {
           return null
         }
 
-        return { email: user.email, id: user.id ,image:user?.image};
+        return { email: user.email, id: user.id ,image:user?.image,role:user?.role};
       }
     })
 
@@ -75,15 +75,18 @@ export const authConfig = {
 
     },
     jwt: ({ token, user }) => {
+     
       if (user) {
 
         token.userId = user.id
+        token.role = user.role; // Add role to the token
       }
       return token
     },
     session: ({ session, token }) => {
 
       session.user.id = token.userId
+      session.user.role = token.role; 
       return session
     }
 

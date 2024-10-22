@@ -1,7 +1,10 @@
 "use client";
-import Hero from "@/components/dashboard/Hero";
+
+import CardStat from "@/components/dashboard/cardStat";
 export default function Dahsboard() {
   return (
-    <Hero/>
+    <>
+     <CardStat/>
+    </>
   );
 }

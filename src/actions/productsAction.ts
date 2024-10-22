@@ -49,7 +49,7 @@ export const AddProduct = async (data: FormData) => {
     const utapi = new UTApi();
 
 
-    const imageFile = productData.image as File; // Type assertion to File
+    const imageFile = productData.image as File; 
 
     if (!(imageFile instanceof File)) {
         throw new Error("Image is not a valid file");
