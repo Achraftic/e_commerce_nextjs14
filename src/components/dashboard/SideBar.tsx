@@ -7,6 +7,7 @@ import {  GoGraph, GoHome } from "react-icons/go";
 import { BsBoxSeam } from "react-icons/bs";
 import { PiShoppingCartSimple, PiShoppingCartSimpleLight } from "react-icons/pi";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { usePathname } from "next/navigation";
 
 const dashboardLinks = [
     { name: "Dashboard", icon: <GoHome />, path: "/dashboard" },
@@ -21,6 +22,7 @@ const normalClass = "text-zinc-500 transition hover:bg-zinc-100  hover:text-zinc
 
 export default function SideBar() {
     const [toggle, setToggle] = useState(false);
+    const currentPath = usePathname();
 
     return (
         <motion.div
@@ -56,7 +58,7 @@ export default function SideBar() {
                     <Link href={link.path} key={index}>
                         <span
 
-                            className={`${link.path === "/dashboard" ? activeClass : normalClass} p-2 rounded-md md:text-sm text-xl flex max-md:justify-center m-auto items-center  space-x-2`}
+                            className={`${link.path === currentPath ? activeClass : normalClass} p-2 rounded-md md:text-sm text-xl flex max-md:justify-center m-auto items-center  space-x-2`}
                         >
                             <motion.span layout className={` text-lg m-auto`}>
                                 {link.icon}

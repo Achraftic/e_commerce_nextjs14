@@ -1,13 +1,13 @@
 'use client'
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import {  DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
-import { CommandeType } from "@/types/type"
+import { OrderItemsType } from "@/types/type"
 import Link from "next/link"
 
-export const columns: ColumnDef<CommandeType>[] = [
+export const columns: ColumnDef<OrderItemsType>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -17,8 +17,9 @@ export const columns: ColumnDef<CommandeType>[] = [
                     (table.getIsSomePageRowsSelected() && "indeterminate")
 
                 }
-                onCheckedChange={(value) => {table.toggleAllPageRowsSelected(!!value)
-                    
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+
                 }}
                 aria-label="Select all"
             />
@@ -28,7 +29,7 @@ export const columns: ColumnDef<CommandeType>[] = [
                 checked={row.getIsSelected()} // Boolean value expected here
                 onCheckedChange={(value) => {
                     row.toggleSelected(!!value);
-                    console.log(row.original); 
+                    console.log(row.original);
                 }}
                 aria-label="Select row"
             />
@@ -36,47 +37,46 @@ export const columns: ColumnDef<CommandeType>[] = [
         enableSorting: false,
         enableHiding: false,
     },
-   
+
     {
-        accessorKey: "numorder", 
-        header: "Num Order",
-        cell: ({ row }) => <div className="capitalize">{row.original.numero_commande}</div>,
+        accessorKey: "id",
+        header: "Id",
+        cell: ({ row }) => <div className="capitalize">{row.original.id}</div>,
 
     },
     {
-        accessorKey: "nameuser", 
-        header: "Username",
-        cell: ({ row }) => <div className="capitalize">{row.original.user.name}</div>,
+        accessorKey: "product",
+        header: "Product",
+        cell: ({ row }) => <div className="capitalize">{row.original.product.name}</div>,
 
     },
     {
-        accessorKey: "Total Order",
-        header: "Total Order",
+        accessorKey: "Qte",
+        header: "Qte",
+        cell: ({ row }) => <div className="capitalize">{row.original.quantite}</div>,
+
+    },
+    {
+        accessorKey: "Price",
+        header: "Price",
         cell: ({ row }) => (
             <div className="capitalize">
-                ${row.original.montant_total.toFixed(2) }
+                ${row.original.product.price.toFixed(2)}
             </div>
         ),
     },
     {
-        accessorKey: "status", 
-        header: "status",
+        accessorKey: "Total Ligne",
+        header: "Total Ligne",
         cell: ({ row }) => (
             <div className="capitalize">
-                {row.original.statut }
+                ${row.original.total_ligne.toFixed(2)}
             </div>
         ),
     },
-  
-    
-    {
-        accessorKey: "date_commande",
-        header: "Date Order",
-        cell: ({ row }) => {
-            const date = new Date(row.getValue("date_commande"))
-            return <div>{date.toLocaleDateString()}</div>
-        },
-    },
+
+
+
 
     {
         id: "actions",
@@ -97,10 +97,10 @@ export const columns: ColumnDef<CommandeType>[] = [
                             {/* <Link href={`/dashboard/orders/edit/${order.id}`}>Edit</Link> */}
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                            
-                            <Link href={`/dashboard/orders/${order.id}`}>Detail</Link>
-                            
-                            </DropdownMenuItem>
+
+                            {/* <Link href={`/dashboard/orders/${order.id}`}>Detail</Link> */}
+
+                        </DropdownMenuItem>
                         {/* <DropdownMenuItem
                             className="text-red-400 hover:text-red-500 "
                             onClick={async () => await deleteOrder(product.id)}
