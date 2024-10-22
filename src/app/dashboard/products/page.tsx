@@ -10,6 +10,9 @@ export default async function DemoPage() {
   const data = await prisma.product.findMany({
     include: {
       Category: true
+    },
+    orderBy:{
+      createdAt: 'desc'
     }
   })
 

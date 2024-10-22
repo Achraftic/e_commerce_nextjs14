@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
         if (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/checkout')) {
             return NextResponse.redirect(new URL('/signin', request.url));
         }
-        cl
+    
         return NextResponse.next();
     }
 

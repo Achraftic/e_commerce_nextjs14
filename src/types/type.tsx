@@ -6,7 +6,10 @@ const ProductWithCategory = Prisma.validator<Prisma.ProductDefaultArgs>()({
 })
 export type ProductsType = Prisma.ProductGetPayload<typeof ProductWithCategory>
 
-
+const CommandeWithUser=Prisma.validator<Prisma.CommandeDefaultArgs>()({
+  include: { user: true },
+})
+export type CommandeType = Prisma.CommandeGetPayload<typeof CommandeWithUser>
 
 const CartItemWithProduct = Prisma.validator<Prisma.CartItemDefaultArgs>()({
   select: {
