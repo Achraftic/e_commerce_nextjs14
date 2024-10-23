@@ -23,7 +23,7 @@ export default function NavPhone({ setToggle, toggle }: NavPhoneProps) {
           key="nav-phone"
           initial={{ width: 0 }}
           animate={{ width: "240px" }}
-          exit={{ width: 0, transition: { duration: 0.05} }} 
+          exit={{ width: 0, transition: { duration: 0.05 } }}
           transition={{ duration: 0.3 }}
           className="p-4 fixed left-0 h-screen shadow-xl top-0 bg-zinc-50 md:hidden z-50 overflow-hidden"
         >
@@ -31,8 +31,8 @@ export default function NavPhone({ setToggle, toggle }: NavPhoneProps) {
             layout
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-          
-            transition={{ delay: 0.3}}
+
+            transition={{ delay: 0.3 }}
           >
             <Logo />
           </motion.div>
@@ -48,8 +48,8 @@ export default function NavPhone({ setToggle, toggle }: NavPhoneProps) {
                   layout
                   initial={{ y: 10, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-               
-                  transition={{ delay: 0.3}}
+
+                  transition={{ delay: 0.3 }}
                 >
                   {route.name}
                 </motion.span>

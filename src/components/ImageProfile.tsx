@@ -11,6 +11,7 @@ export default async function ImageProfile() {
     <>
         {session?.user ?
           <DropDown>
+          
             <Image src={session?.user?.image as string} width={30} height={30} alt="user image" className='rounded-full  cursor-pointer' />
           </DropDown>
           :

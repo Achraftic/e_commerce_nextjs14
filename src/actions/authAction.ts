@@ -5,9 +5,13 @@ import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 import prisma from "../../prisma/db";
 import bcrypt from "bcryptjs"
+import { UTApi } from "uploadthing/server";
+import { revalidatePath } from "next/cache";
 
 
-export async function logIn( formData: unknown) {
+
+
+export async function logIn(formData: unknown) {
 
     if (!(formData instanceof FormData)) {
         return { message: "invalide form data" }
@@ -21,7 +25,7 @@ export async function logIn( formData: unknown) {
     try {
 
         await signIn("credentials", authData);
-     
+
     }
     catch (error) {
         if (error instanceof AuthError) {
@@ -36,9 +40,9 @@ export async function logIn( formData: unknown) {
         else {
             throw error
         }
-        
+
     }
- 
+
 
 }
 
@@ -78,7 +82,7 @@ export async function SignUp(formData: unknown) {
     catch (error) {
         throw error
     }
-  
+
 }
 
 export async function LoginWithGoogle() {
@@ -87,4 +91,61 @@ export async function LoginWithGoogle() {
 export async function Logout() {
     await signOut()
     redirect("/login")
+}
+
+
+
+export async function updateProfile(formData: FormData) {
+    const userData = Object.fromEntries(formData.entries());
+    const utapi = new UTApi();
+    const imageFile = userData.image as File;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userData.id as string,
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+            hashedPassword: true
+        }
+    });
+
+    let updateData;
+    if (user?.hashedPassword === null) {
+        updateData = {
+            name: userData.name as string,
+            image: user?.image as string,
+        };
+    } else {
+        updateData = {
+            name: userData.name as string,
+            image: user?.image as string,
+            email: user?.email as string,
+        };
+    }
+
+    if (imageFile instanceof File && imageFile.size > 0) {
+        const response = await utapi.uploadFiles([imageFile]);
+        updateData.image = response[0].data?.url as string;
+
+        if (user?.image) {
+            const newUrl = user.image.substring(user.image.lastIndexOf("/") + 1);
+            const result = await utapi.deleteFiles([newUrl]);
+            console.log("Old image deleted:", result);
+        }
+    }
+
+    const result = await prisma.user.update({
+        where: {
+            id: userData.id as string,
+        },
+        data: updateData,
+    });
+
+    revalidatePath("/");
+
+    return result;
 }

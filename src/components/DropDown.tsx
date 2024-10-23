@@ -9,6 +9,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Logoutbtn from "./auth/Logoutbtn"
+import { Profile } from "./Profile"
 
 export function DropDown({ children }: { children: React.ReactNode }) {
     return (
@@ -20,14 +21,12 @@ export function DropDown({ children }: { children: React.ReactNode }) {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        Profile
-                    </DropdownMenuItem>
-
+                
+                        <Profile /> 
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                    <Logoutbtn/>
+                    <Logoutbtn />
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

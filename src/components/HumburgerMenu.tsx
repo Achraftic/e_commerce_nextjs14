@@ -8,11 +8,8 @@ export default function HumburgerMenu() {
     const [toggle, setToggle] = React.useState(false)
     return (
         <div>
-
             <VscListSelection size={25} className='md:hidden  cursor-pointer' onClick={() => setToggle(!toggle)} />
-            
-                <NavPhone toggle={toggle} setToggle={setToggle} />
-        
+            <NavPhone toggle={toggle} setToggle={setToggle} />
         </div>
     )
 }

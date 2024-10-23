@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Prisma } from "@prisma/client";
+import { User } from "next-auth";
 
 const ProductWithCategory = Prisma.validator<Prisma.ProductDefaultArgs>()({
   include: { Category: true },
@@ -50,3 +51,4 @@ const CartItemWithProduct = Prisma.validator<Prisma.CartItemDefaultArgs>()({
 
 export type CartItemsType = Prisma.CartItemGetPayload<typeof CartItemWithProduct>;
 
+export type UserProfile = Pick<User, "name" | "email" | "image"|"id">;

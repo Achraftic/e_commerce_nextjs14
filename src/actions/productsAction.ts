@@ -76,7 +76,7 @@ export const AddProduct = async (data: FormData) => {
 }
 
 export const editProduct = async (data: FormData, id: number) => {
-    console.log("from server");
+
     const productData = Object.fromEntries(data.entries());
     const utapi = new UTApi();
     const imageFile = productData.image as File; 
