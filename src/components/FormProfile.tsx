@@ -6,11 +6,12 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { updateProfile } from "@/actions/authAction";
 import { UserProfile } from "@/types/type";
+import { useRouter } from "next/navigation";
 
 export function FormProfile({ user }: { user: UserProfile }) {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
-
+     const router=useRouter();
     // Handle image selection
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -26,14 +27,16 @@ export function FormProfile({ user }: { user: UserProfile }) {
     const handleSubmit = async (formData: FormData) => {
       
        await updateProfile(formData);
-       console.log("okd")
+
+       router.refresh();
+      
        
     };
 
     return (
         <form action={handleSubmit}>
             <div className="gap-4 flex">
-                <Image src={preview || user?.image as string} width={55} height={55} alt="Profile image" className="w-32 h-32 object-cover rounded-full" />
+                <Image src={preview || user?.image as string} width={65} height={65} alt="Profile image" className="w-32 h-32 object-cover rounded-full" />
                  <input type="hidden" name="id" value={user?.id as string} />
                 <div className="grid gap-4 py-4">
                     <div className="grid   gap-4">

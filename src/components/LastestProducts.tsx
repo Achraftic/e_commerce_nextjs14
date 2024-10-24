@@ -7,7 +7,7 @@ import { Button } from './ui/button'
 export default async function LastestProducts() {
     const products = await getLastestProducts()
     return (
-        <div className='my-20'>
+        <div className=''>
             <H1 className='mb-16'>Lastest Products</H1>
             <div className='grid my-4 sm:grid-cols-2 grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-5'>
                 {

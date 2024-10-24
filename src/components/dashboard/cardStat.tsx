@@ -1,10 +1,9 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { getStatsForCard } from '@/actions/dashboardAction';
-import Loading from '@/app/dashboard/loading';
 import H1 from '../ui/h1';
 import { BsBoxSeam, BsCartCheck, BsCurrencyDollar } from 'react-icons/bs';
+import SkeltonCardStat from './SkeltonCardStat';
 
 type Stats = {
     products_count: number;
@@ -31,7 +30,7 @@ export default function CardStat() {
     }, []);
 
     if (!stats) {
-        return <><Loading /></>;
+        return <><SkeltonCardStat /></>;
     }
 
     return (

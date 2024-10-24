@@ -3,19 +3,10 @@ import React, { useState } from "react";
 import {  RiNextjsFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {  GoGraph, GoHome } from "react-icons/go";
-import { BsBoxSeam } from "react-icons/bs";
-import { PiShoppingCartSimple, PiShoppingCartSimpleLight } from "react-icons/pi";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { usePathname } from "next/navigation";
+import { dashboardRoutes } from "@/routes";
 
-const dashboardLinks = [
-    { name: "Dashboard", icon: <GoHome />, path: "/dashboard" },
-    { name: "Products", icon: <BsBoxSeam />, path: "/dashboard/products" },
-    { name: "Orders", icon: <PiShoppingCartSimple />, path: "/dashboard/orders" },
-    { name: "Analytics", icon: <GoGraph />, path: "/dashboard/analytics" },
-    
-];
 
 const activeClass = " bg-zinc-100 text-zinc-600  font-medium";
 const normalClass = "text-zinc-500 transition hover:bg-zinc-100  hover:text-zinc-600 hover:font-medium";
@@ -54,7 +45,7 @@ export default function SideBar() {
 
             {/* Main Links */}
             <ul className="flex flex-col my-8 md:gap-4 gap-6 w-full flex-grow">
-                {dashboardLinks.map((link, index) => (
+                {dashboardRoutes.map((link, index) => (
                     <Link href={link.path} key={index}>
                         <span
 

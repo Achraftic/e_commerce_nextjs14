@@ -1,3 +1,7 @@
+import { BsBoxSeam } from "react-icons/bs";
+import { GoGraph, GoHome } from "react-icons/go";
+import { PiShoppingCartSimple } from "react-icons/pi";
+
 export const  clientRoutes=[
     {
         path: "/",
@@ -21,3 +25,11 @@ export const  clientRoutes=[
     }
 
 ]
+
+export const dashboardRoutes = [
+    { name: "Dashboard", icon: <GoHome />, path: "/dashboard" },
+    { name: "Products", icon: <BsBoxSeam />, path: "/dashboard/products" },
+    { name: "Orders", icon: <PiShoppingCartSimple />, path: "/dashboard/orders" },
+    { name: "Analytics", icon: <GoGraph />, path: "/dashboard/analytics" },
+    
+];

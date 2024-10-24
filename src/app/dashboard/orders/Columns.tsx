@@ -62,7 +62,7 @@ export const columns: ColumnDef<CommandeType>[] = [
         accessorKey: "status", 
         header: "status",
         cell: ({ row }) => (
-            <div className="capitalize">
+            <div className=" lowercase text-zinc-50 rounded-full text-xs px-2 py-1 bg-emerald-500 w-min">
                 {row.original.statut }
             </div>
         ),
