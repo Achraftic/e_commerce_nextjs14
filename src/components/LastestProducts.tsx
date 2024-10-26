@@ -18,7 +18,7 @@ export default async function LastestProducts() {
                 }
             </div>
          
-          <div className='w-full flex justify-center items-center'>
+          <div className='w-full flex justify-center items-center mt-10'>
             <Button className='px-8 hover:-translate-y-3 transition-transform'>Explore</Button>
           </div>
 

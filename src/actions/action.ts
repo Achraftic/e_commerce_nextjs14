@@ -66,7 +66,7 @@ async function fetchCartItems(cartId: number) {
 }
 
 async function handleAnonymousCart(existingCartId: number, existingCartItems: CartItemsType[]) {
-    const Cookies=await cookies()
+    const Cookies= cookies()
     console.log("lisstenning to anonymous cart");
     const cartCookie = Cookies.get("cartid");
 
@@ -100,10 +100,7 @@ async function handleAnonymousCart(existingCartId: number, existingCartItems: Ca
                 });
             })
         );
-        // if(idCart){
-
-        //     await prisma.cart.delete({ where: { id: idCart  } });
-        // }
+    
     }
 }
 
@@ -121,7 +118,7 @@ export async function getCartItems() {
 
         return existingCartItems;
     } else {
-        const Cookies=await cookies()
+        const Cookies= cookies()
         const cartCookie = Cookies.get("cartid");
 
         if (cartCookie) {

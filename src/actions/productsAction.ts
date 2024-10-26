@@ -157,7 +157,7 @@ export const getLastestProducts = async () => {
         orderBy:{
             createdAt: 'desc'
         },
-        take:6
+        take:4
     })
     return products
 }
