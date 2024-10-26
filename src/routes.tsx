@@ -14,12 +14,12 @@ export const  clientRoutes=[
        
     },
     {
-        path: "/Contact",
+        path: "/contact",
         name:"Contact",
       
     },
     {
-        path: "/About",
+        path: "/about",
         name:"About",
 
     }

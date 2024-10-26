@@ -115,7 +115,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                 {/* Description Textarea */}
                 <div className='gap-1 grid col-span-3'>
                     <Label className='text-dark font-semibold'>Description</Label>
-                    <Textarea defaultValue={product?.description as string} name="description" className='text-xs' placeholder='Product Description' />
+                    <Textarea defaultValue={product?.description as string} name="description" className='text-xs h-40' placeholder='Product Description' />
                     <div className='error text-red-500 h-2 text-xs'>
                         {errors.description && <p>{errors.description[0]}</p>}
                     </div>
@@ -125,7 +125,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                 <div className='gap-1 grid col-span-3'>
                     <Label className='text-dark font-semibold'>Category</Label>
 
-                    <select name="category" id="" className='bg-transparent border border-zinc-200 p-2 ' >
+                    <select name="category" id="" className='bg-transparent border border-zinc-200 p-2 text-xs ' >
                         <option value="">Select Category</option>
                         {categories.map((category) => (
                             <option selected={category.id === product?.Category?.id} key={category.id} value={category.id}>

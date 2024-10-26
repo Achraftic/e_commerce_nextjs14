@@ -1,7 +1,7 @@
 'use client'
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { CaretSortIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
 import { OrderItemsType } from "@/types/type"
@@ -52,13 +52,32 @@ export const columns: ColumnDef<OrderItemsType>[] = [
     },
     {
         accessorKey: "Qte",
-        header: "Qte",
+        header: ({ column }) => (
+            <Button
+                className="p-0"
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+                Qte
+                <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+        ),
         cell: ({ row }) => <div className="capitalize">{row.original.quantite}</div>,
 
     },
     {
         accessorKey: "Price",
-        header: "Price",
+        header: ({ column }) => (
+            <Button
+                className="p-0"
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+                Price
+                <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+        ),
+       
         cell: ({ row }) => (
             <div className="capitalize">
                 ${row.original.product.price.toFixed(2)}

@@ -23,8 +23,8 @@ export default async function page({ params }: { params: { orderId: number } }) 
                 },
             }
         },
-        where:{
-            CommandeId:  parseInt(params.orderId.toString()),
+        where: {
+            CommandeId: parseInt(params.orderId.toString()),
         }
     }
     )
@@ -34,10 +34,10 @@ export default async function page({ params }: { params: { orderId: number } }) 
         <>
             <H1> Order Items <span className="text-zinc-400  text-xl"> ({data.length})</span> </H1>
             <DataTable columns={columns} data={data} />
-          <div className='flex justify-end p-4 my-5 text-lg font-semibold gap-1'>
-          Total: <span>${data[0].commande.montant_total.toFixed(2)}</span>
+            <div className='flex justify-end p-4 my-5 text-lg font-semibold gap-1'>
+                Total: <span>${data[0].commande.montant_total.toFixed(2)}</span>
 
-          </div>
+            </div>
         </>
     )
 }

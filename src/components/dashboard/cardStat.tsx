@@ -36,7 +36,7 @@ export default function CardStat() {
     return (
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4 *:rounded-lg mt-6">
             {/* Products Count */}
-            <div className="bg-zinc-100/70 py-3 px-4 flex items-center gap-4 ">
+            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center gap-4 ">
                 <div className="bg-purple-300/40 p-3 rounded-full">
                     <BsBoxSeam className="text-purple-800" size={20} />
                 </div>
@@ -47,7 +47,7 @@ export default function CardStat() {
             </div>
 
             {/* Orders Count */}
-            <div className="bg-zinc-100/70 py-3 px-4 flex items-center  gap-4 ">
+            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center  gap-4 ">
                 <div className="bg-green-300/40 p-3 rounded-full">
                     <BsCartCheck className="text-green-800" size={20} />
                 </div>
@@ -58,7 +58,7 @@ export default function CardStat() {
             </div>
 
             {/* Earnings This Month */}
-            <div className="bg-zinc-100/70 py-3 px-4 flex items-center  gap-4 ">
+            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center  gap-4 ">
                 <div className="bg-blue-300/40 p-3 rounded-full">
                     <BsCurrencyDollar className="text-blue-800" size={20} />
                 </div>
@@ -69,7 +69,7 @@ export default function CardStat() {
             </div>
 
             {/* Earnings This Year */}
-            <div className="bg-zinc-100/70 py-3 px-4 flex items-center  gap-4 ">
+            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center  gap-4 ">
                 <div className="bg-yellow-300/40 p-3 rounded-full h-max">
                     <BsCurrencyDollar className="text-yellow-800" size={20} />
                 </div>

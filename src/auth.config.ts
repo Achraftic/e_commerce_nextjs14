@@ -47,7 +47,7 @@ export const authConfig = {
           return null
         }
 
-        return { email: user.email, id: user.id ,image:user?.image,role:user?.role};
+        return { email: user.email, id: user.id ,image:user?.image,role:user?.role,name:user?.name};
       }
     })
 

@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-
 import * as React from "react"
 import { ColumnDef, ColumnFiltersState, SortingState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CiSearch } from "react-icons/ci"
-import { Button } from "@/components/ui/button"
-import { PlusIcon } from "@radix-ui/react-icons"
-import Link from "next/link"
+import { CommandeType } from "@/types/type"
+
 
 // Assuming categories are passed as props or come from the data
 interface DataTableProps<TData, TValue> {
@@ -22,24 +21,33 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = React.useState("") // For global search
-
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-
+ 
   const table = useReactTable({
     data,
     columns,
+    state: {
+      sorting,
+      columnFilters,
+      globalFilter, // This needs to be in the table state
+    },
+    globalFilterFn: (row: CommandeType | any, filterValue) => {
+      console.log('Row:', row);
+      console.log('Filter Value:', filterValue);
+      const id = String(row.original.id).toLowerCase();
+      const productName = row.original?.product?.name?.toLowerCase() || "";
+      const userName = row.original?.user?.name?.toLowerCase() || "";
+      const filter = filterValue.toLowerCase();
+      
+      return id.includes(filter) || productName.includes(filter) || userName.includes(filter);
+    },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
-    state: {
-      sorting,
-      columnFilters,
-      globalFilter, // Track global filter for all fields
-    },
-  })
+  });
+  
 
 
   return (
@@ -62,7 +70,7 @@ export function DataTable<TData, TValue>({
       </div>
 
 
-      <div className="rounded-md ">
+      <div className="rounded-md mb-7 ">
         <Table>
           <TableHeader className="bg-zinc-100">
             {table.getHeaderGroups().map((headerGroup) => (

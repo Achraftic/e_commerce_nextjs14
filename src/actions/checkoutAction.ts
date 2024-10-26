@@ -5,7 +5,7 @@ import prisma from "../../prisma/db";
 import { redirect } from "next/navigation";
 
 export const CreateCommande = async (formdata: FormData) => {
-    let message=""
+    let message = ""
     try {
         const address = formdata.get("address");
         const session = await auth();
@@ -71,23 +71,31 @@ export const CreateCommande = async (formdata: FormData) => {
                             total_ligne: item.product.price * item.quantity
                         }
                     });
+                    // decrement le stock
+                    await tx.product.update({
+                        where: { id: item.productId },
+                        data: { stock: { decrement: item.quantity } }
+                    })
                 })
             );
+
 
             await tx.cartItem.deleteMany({
                 where: { cartId: cart.id }
             });
-            message="order created succussfully"
+
+
+            message = "order created succussfully"
 
         });
         console.log("from the serveur")
 
     } catch (error) {
-          message="Erreur lors de la création de la commande"
+        message = "Erreur lors de la création de la commande"
         console.error("Erreur lors de la création de la commande :", error);
     }
     finally {
-      
+
         redirect("/checkout/success")
     }
 };

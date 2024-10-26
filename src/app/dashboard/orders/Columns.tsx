@@ -1,11 +1,12 @@
 'use client'
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import {  DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
 import { CommandeType } from "@/types/type"
 import Link from "next/link"
+import { IoEyeOutline } from "react-icons/io5"
 
 export const columns: ColumnDef<CommandeType>[] = [
     {
@@ -17,8 +18,9 @@ export const columns: ColumnDef<CommandeType>[] = [
                     (table.getIsSomePageRowsSelected() && "indeterminate")
 
                 }
-                onCheckedChange={(value) => {table.toggleAllPageRowsSelected(!!value)
-                    
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+
                 }}
                 aria-label="Select all"
             />
@@ -28,7 +30,7 @@ export const columns: ColumnDef<CommandeType>[] = [
                 checked={row.getIsSelected()} // Boolean value expected here
                 onCheckedChange={(value) => {
                     row.toggleSelected(!!value);
-                    console.log(row.original); 
+                    console.log(row.original);
                 }}
                 aria-label="Select row"
             />
@@ -36,15 +38,15 @@ export const columns: ColumnDef<CommandeType>[] = [
         enableSorting: false,
         enableHiding: false,
     },
-   
+
     {
-        accessorKey: "numorder", 
+        accessorKey: "numorder",
         header: "Num Order",
         cell: ({ row }) => <div className="capitalize">{row.original.numero_commande}</div>,
 
     },
     {
-        accessorKey: "nameuser", 
+        accessorKey: "nameuser",
         header: "Username",
         cell: ({ row }) => <div className="capitalize">{row.original.user.name}</div>,
 
@@ -54,21 +56,21 @@ export const columns: ColumnDef<CommandeType>[] = [
         header: "Total Order",
         cell: ({ row }) => (
             <div className="capitalize">
-                ${row.original.montant_total.toFixed(2) }
+                ${row.original.montant_total.toFixed(2)}
             </div>
         ),
     },
     {
-        accessorKey: "status", 
+        accessorKey: "status",
         header: "status",
         cell: ({ row }) => (
             <div className=" lowercase text-zinc-50 rounded-full text-xs px-2 py-1 bg-emerald-500 w-min">
-                {row.original.statut }
+                {row.original.statut}
             </div>
         ),
     },
-  
-    
+
+
     {
         accessorKey: "date_commande",
         header: "Date Order",
@@ -84,32 +86,9 @@ export const columns: ColumnDef<CommandeType>[] = [
         cell: ({ row }) => {
             const order = row.original
             return (
-                <DropdownMenu >
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <DotsHorizontalIcon className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem asChild>
-                            {/* <Link href={`/dashboard/orders/edit/${order.id}`}>Edit</Link> */}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            
-                            <Link href={`/dashboard/orders/${order.id}`}>Detail</Link>
-                            
-                            </DropdownMenuItem>
-                        {/* <DropdownMenuItem
-                            className="text-red-400 hover:text-red-500 "
-                            onClick={async () => await deleteOrder(product.id)}
-                        >
-                            Delete
-                        </DropdownMenuItem> */}
+                <Link href={`/dashboard/orders/${order.id}`}> <IoEyeOutline className="h-5 w-5 text-zinc-800" /></Link>
 
-                    </DropdownMenuContent>
-                </DropdownMenu>
+
             )
         },
     },

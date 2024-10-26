@@ -6,15 +6,21 @@ import { CiStar } from "react-icons/ci";
 import ButtonAddToCart from '@/components/ButtonAddToCart';
 import { Input } from '@/components/ui/input';
 import { SimilarProducts } from '@/components/SimilarProducts';
+import NotFound from '@/app/not-found';
 export default async function OneProductPage({ params }: { params: { product_id: string } }) {
-  const { product_id } =  params
+  const { product_id } = params
   const product = await prisma.product.findUnique({
     where:
       { id: Number(product_id) },
-   include:{
-    Category:true
-   }
+    include: {
+      Category: true
+    }
   })
+  if (!product) {
+    return (
+      <NotFound/>
+    )
+  }
   return (
     <div>
 
@@ -51,7 +57,7 @@ export default async function OneProductPage({ params }: { params: { product_id:
 
       </div>
 
-      <SimilarProducts category={product!.Category!.id} id={product!.id}/>
+      <SimilarProducts category={product!.Category!.id} id={product!.id} />
     </div>
 
   )
