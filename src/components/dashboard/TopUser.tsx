@@ -27,7 +27,7 @@ export default async function TopUser() {
 
 
     return (
-        <div className='bg-zinc-100/70  shadow-xl shadow-stone-200/50   p-5 pb-2  rounded-md '>
+        <div className='bg-zinc-100/70  shadow shadow-stone-200/60   p-5 pb-2  rounded-md '>
             <H1 className='text-lg m-0  w-max'>Users Most Order</H1>
             <div className='flex flex-col gap-3 mt-5 w-max  '>
                 {users.map((user,index) => (

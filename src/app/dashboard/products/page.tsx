@@ -1,20 +1,13 @@
 import { columns } from "./Columns"
 import { DataTable } from "./data-table"
-import prisma from "../../../../prisma/db"
 import H1 from "@/components/ui/h1"
+import { getAllProducts } from "@/actions/productsAction";
 
 
 
 
-export default async function DemoPage() {
-  const data = await prisma.product.findMany({
-    include: {
-      Category: true
-    },
-    orderBy:{
-      createdAt: 'desc'
-    }
-  })
+export default async function ProductsPage() {
+  const data =  await getAllProducts();
 
 
   return (

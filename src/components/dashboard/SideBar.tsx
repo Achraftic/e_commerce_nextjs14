@@ -6,45 +6,60 @@ import Link from "next/link";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import { dashboardRoutes } from "@/routes";
-const activeClass = " bg-zinc-100 text-zinc-600  font-medium";
-const normalClass = "text-zinc-500 transition hover:bg-zinc-100  hover:text-zinc-600 hover:font-medium";
+
+const activeClass = " bg-zinc-100 text-zinc-600 font-medium";
+const normalClass = "text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-600 hover:font-medium";
 
 export default function SideBar() {
     const [toggle, setToggle] = useState(false);
     const currentPath = usePathname();
-    const [width, setWidth] = useState(window.innerWidth);
+    const [width, setWidth] = useState(0); // Initialize width as 0
 
     useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth);
-        };
+        // Check if window is defined before accessing its properties
+        if (typeof window !== "undefined") {
+            setWidth(window.innerWidth); // Set the initial width on client side
 
-        window.addEventListener('resize', handleResize);
+            const handleResize = () => {
+                setWidth(window.innerWidth);
+            };
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
+            window.addEventListener('resize', handleResize);
+
+            // Cleanup the event listener on component unmount
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }
     }, []);
-    
-    const sidbarWidth = () => {
+
+    const sidebarWidth = () => {
         if (width < 768 || toggle) {
-            return "50px"
+            return "60px";
         } else {
-            return "220px"
+            return "220px";
         }
     };
 
     return (
         <motion.div
-
-
             initial={{ width: 0 }}
-            animate={{ width: sidbarWidth() }}
+            animate={{ width: sidebarWidth() }}
             transition={{ duration: 0.2 }}
-            className="  sticky  h-screen py-6 md:w-full w-max   top-0 flex flex-col justify-center bg-transparent p-2"
+            className="sticky h-screen py-6 md:w-full w-max top-0 flex flex-col justify-center bg-transparent px-2 "
         >
             {/* Sidebar Header */}
-            <IoChevronBackOutline size={15} onClick={() => setToggle(!toggle)} className={`cursor-pointer absolute ${toggle && "rotate-180"} max-md:hidden  top-3 text-zinc-500 right-0`} />
+            <div  
+            className={`cursor-pointer absolute ${toggle && "rotate-180"} rounded-full p-0.5 bg-zinc-100  shadow max-md:hidden top-3 text-zinc-400 -right-2`} 
+            onClick={() => setToggle(!toggle)} 
+            >
+
+            <IoChevronBackOutline 
+                size={13} 
+              
+               
+            />
+            </div>
             <h1 className="flex mt-2 items-center gap-2 text-lg font-semibold md:w-full w-min mx-auto">
                 <motion.span layout>
                     <RiNextjsFill size={40} />
@@ -67,10 +82,9 @@ export default function SideBar() {
                 {dashboardRoutes.map((link, index) => (
                     <Link href={link.path} key={index}>
                         <span
-
-                            className={`${link.path === currentPath ? activeClass : normalClass} p-2 rounded-md md:text-sm text-xl flex max-md:justify-center m-auto items-center  space-x-2`}
+                            className={`${link.path === currentPath ? activeClass : normalClass} p-2 rounded-md md:text-sm text-xl flex max-md:justify-center m-auto items-center space-x-2`}
                         >
-                            <motion.span className={` text-lg m-auto`}>
+                            <motion.span className="text-lg m-auto">
                                 {link.icon}
                             </motion.span>
                             {!toggle && (
@@ -87,8 +101,6 @@ export default function SideBar() {
                     </Link>
                 ))}
             </ul>
-
-
         </motion.div>
     );
 }
