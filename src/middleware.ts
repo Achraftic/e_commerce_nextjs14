@@ -4,13 +4,13 @@ import { auth } from "./auth.config";
 export async function middleware(request: NextRequest) {
     const session = await auth(); // Retrieve the session with await
 
-    
+
     if (!session?.user) {
         // If user is trying to access protected routes, redirect to sign-in
         if (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/checkout')) {
             return NextResponse.redirect(new URL('/signin', request.url));
         }
-    
+
         return NextResponse.next();
     }
 
@@ -18,8 +18,8 @@ export async function middleware(request: NextRequest) {
 
     // Redirect logic for sign-in and sign-up pages
     if (request.nextUrl.pathname.startsWith('/signin') || request.nextUrl.pathname.startsWith('/signup')) {
-        return isAdmin 
-            ? NextResponse.redirect(new URL('/dashboard', request.url)) 
+        return isAdmin
+            ? NextResponse.redirect(new URL('/dashboard', request.url))
             : NextResponse.redirect(new URL('/', request.url));
     }
 

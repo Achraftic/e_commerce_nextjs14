@@ -47,7 +47,7 @@ const CartItemWithProduct = Prisma.validator<Prisma.CartItemDefaultArgs>()({
       },
     },
   },
-});
+})  ; 
 
 export type CartItemsType = Prisma.CartItemGetPayload<typeof CartItemWithProduct>;
 

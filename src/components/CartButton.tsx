@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from './ui/button'
 import CartList from './CartList'
-import { getCartItems } from '@/actions/action'
+import { cartCount, getCartItems } from '@/actions/action'
 import Link from 'next/link'
 export default async function CartButton() {
-    const count = (await getCartItems())?.length || 0
+    const { count } = await cartCount()
 
 
 
@@ -33,7 +33,7 @@ export default async function CartButton() {
                         </span>
                     </div>
                 </SheetTrigger>
-                <SheetContent className='w-[400px] overflow-y-scroll overflow-x-hidden'>
+                <SheetContent className='w-[400px] overflow-y-auto overflow-x-hidden'>
                     <SheetHeader>
                         <SheetTitle>Shopping Cart</SheetTitle>
 
@@ -46,7 +46,6 @@ export default async function CartButton() {
                         <SheetClose asChild>
                             <Button asChild type="submit">
                                 <Link href="/checkout">Checkout</Link>
-
                             </Button>
                         </SheetClose>
                     </SheetFooter>

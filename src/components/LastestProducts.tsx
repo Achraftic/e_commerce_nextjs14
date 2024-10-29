@@ -3,6 +3,7 @@ import H1 from './ui/h1'
 import { getLastestProducts } from '@/actions/productsAction'
 import Product from './Product'
 import { Button } from './ui/button'
+import Link from 'next/link'
 
 export default async function LastestProducts() {
     const products = await getLastestProducts()
@@ -17,10 +18,15 @@ export default async function LastestProducts() {
                     )
                 }
             </div>
-         
-          <div className='w-full flex justify-center items-center mt-10'>
-            <Button className='px-8 hover:-translate-y-3 transition-transform'>Explore</Button>
-          </div>
+
+            <div className='w-full flex justify-center items-center mt-10'>
+                <Button asChild className='px-8 hover:-translate-y-3 transition-transform'>
+                    <Link href={'/products'}>
+                        Explore
+                    </Link>
+
+                </Button>
+            </div>
 
         </div>
     )

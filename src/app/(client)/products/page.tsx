@@ -17,8 +17,8 @@ export default async function Home({ searchParams }: homeProps) {
         <h1 className="text-3xl font-semibold  ">Products</h1>
         <FilterProduct searchParams={searchParams} />
       </div>
-      <Suspense fallback={<SkeletonList/>}>
-        <ProductList  searchParams={searchParams} />
+      <Suspense fallback={<SkeletonList />}>
+        <ProductList searchParams={searchParams} />
       </Suspense>
     </>
   );

@@ -29,7 +29,7 @@ async function getOrCreateCart(userId: string) {
 }
 
 async function getOrCreateCartForAnonymous() {
-    const Cookies=await cookies()
+    const Cookies = await cookies()
     const cartIdFromCookie = Cookies.get("cartid");
 
     if (cartIdFromCookie) {
@@ -66,7 +66,7 @@ async function fetchCartItems(cartId: number) {
 }
 
 async function handleAnonymousCart(existingCartId: number, existingCartItems: CartItemsType[]) {
-    const Cookies= cookies()
+    const Cookies = cookies()
     console.log("lisstenning to anonymous cart");
     const cartCookie = Cookies.get("cartid");
 
@@ -100,7 +100,7 @@ async function handleAnonymousCart(existingCartId: number, existingCartItems: Ca
                 });
             })
         );
-    
+
     }
 }
 
@@ -114,11 +114,11 @@ export async function getCartItems() {
         if (existingCartItems.length !== 0) {
             await handleAnonymousCart(existingCart.id, existingCartItems);
         }
-       
+
 
         return existingCartItems;
     } else {
-        const Cookies= cookies()
+        const Cookies = cookies()
         const cartCookie = Cookies.get("cartid");
 
         if (cartCookie) {
@@ -130,7 +130,7 @@ export async function getCartItems() {
 
 export async function addToCart(productId: number) {
     const userId = await getUserId();
-    const Cookies=await cookies()
+    const Cookies = await cookies()
     if (userId) {
         const existingCart = await getOrCreateCart(userId);
         const cartIdFromCookie = Cookies.get("cartid");
@@ -182,4 +182,45 @@ export async function addToCart(productId: number) {
 
     revalidatePath('/');
     return { message: "Added to cart successfully" };
+}
+
+
+export async function cartCount() {
+    const userId = await getUserId();
+    if (userId) {
+        const existingCart = await prisma.cart.findFirst({ where: { userId } });
+
+        if (!existingCart) {
+            return {
+                count: 0
+            }
+        }
+        const cartcount = await prisma.cartItem.count({
+            where: {
+                cartId: existingCart.id,
+               
+            }
+        });
+        return {
+            count: cartcount
+        };
+    } else {
+        const cartCookie = cookies().get("cartid");
+        if (cartCookie) {
+            const idCart = JSON.parse(cartCookie.value);
+            const cartItem = await prisma.cartItem.findMany({
+                where: {
+                    cartId: idCart,
+                   
+                }
+            });
+            return {count:cartItem.length};
+        }
+        else {
+            return {
+                count: 0
+            }
+        }
+    }
+
 }
