@@ -46,11 +46,11 @@ export function Footer() {
                 </div>
             </div>
 
-            <div className="border-t border-zinc-200 mt-8 pt-4 text-center">
+            {/* <div className="border-t border-zinc-200 mt-8 pt-4 text-center">
                 <p className="text-sm text-zinc-400">Made with 💙 by
                     <a href="https://github.com/oguimaraes" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline"> oguimaraes</a>
                 </p>
-            </div>
+            </div> */}
         </footer>
 
     )

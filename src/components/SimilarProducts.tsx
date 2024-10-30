@@ -31,6 +31,10 @@ export async function SimilarProducts({ category, id }: { category: number, id: 
     }
 
   })
+  if(products.length === 0) {
+
+    return null
+  }
 
   return (
     <div className="w-full p-4">

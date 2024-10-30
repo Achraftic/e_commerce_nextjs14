@@ -7,8 +7,8 @@ import { cn } from '@/lib/utils';
 import { HiOutlineTrash } from 'react-icons/hi2';
 ;
 
-export default async function CartList({className}:{className?:string}) {
-  const cartItems= await getCartItems();
+export default async function CartList({ className }: { className?: string }) {
+  const cartItems = await getCartItems();
   const total = cartItems?.reduce((acc: number, item) => acc + item.product.price * item.quantity, 0);
 
   return (
@@ -24,7 +24,7 @@ export default async function CartList({className}:{className?:string}) {
               </div>
               <Input type="number" defaultValue={item.quantity} min={1} max={item.product.stock} className="w-16" />
               <p className='text-sm '>${(item.product.price * item.quantity).toFixed(2)}</p>
-              <HiOutlineTrash className='text-lg text-red-500 cursor-pointer'/>
+              <HiOutlineTrash className='text-lg text-red-500 cursor-pointer' />
             </div>
           ))
         ) : (
