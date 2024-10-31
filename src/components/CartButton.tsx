@@ -44,9 +44,14 @@ export default async function CartButton() {
 
                     <SheetFooter>
                         <SheetClose asChild>
+                            {count < 1 ? null : (
+
+                              
                             <Button asChild type="submit">
+
                                 <Link href="/checkout">Checkout</Link>
                             </Button>
+                            )}
                         </SheetClose>
                     </SheetFooter>
                 </SheetContent>

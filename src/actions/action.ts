@@ -71,7 +71,7 @@ async function handleAnonymousCart(existingCartId: number, existingCartItems: Ca
     const cartCookie = Cookies.get("cartid");
 
     if (cartCookie) {
-        const idCart = JSON.parse(cartCookie.value);
+        const idCart = JSON.parse(cartCookie.value) as number;
         const cartFromCookie = await fetchCartItems(idCart);
 
         const mergedCartItems = handleMergeArray(cartFromCookie, existingCartItems);
@@ -130,7 +130,7 @@ export async function getCartItems() {
 
 export async function addToCart(productId: number) {
     const userId = await getUserId();
-    const Cookies = await cookies()
+    const Cookies =  cookies()
     if (userId) {
         const existingCart = await getOrCreateCart(userId);
         const cartIdFromCookie = Cookies.get("cartid");
@@ -198,7 +198,7 @@ export async function cartCount() {
         const cartcount = await prisma.cartItem.count({
             where: {
                 cartId: existingCart.id,
-               
+
             }
         });
         return {
@@ -208,13 +208,13 @@ export async function cartCount() {
         const cartCookie = cookies().get("cartid");
         if (cartCookie) {
             const idCart = JSON.parse(cartCookie.value);
-            const cartItem = await prisma.cartItem.findMany({
+            const cartcount = await prisma.cartItem.count({
                 where: {
                     cartId: idCart,
-                   
+
                 }
             });
-            return {count:cartItem.length};
+            return { count: cartcount };
         }
         else {
             return {
@@ -223,4 +223,40 @@ export async function cartCount() {
         }
     }
 
+}
+
+export const removeFromCart = async (productId: number) => {
+    const userId = await getUserId();
+    if (userId) {
+        const existingCart = await prisma.cart.findFirst({ where: { userId } });
+
+        if (!existingCart) {
+            return { message: "Cart not found" };
+        }
+        await prisma.cartItem.delete({
+            where: {
+                cartId_productId: {
+                    cartId: existingCart.id,
+                    productId,
+                },
+            },
+        });
+        revalidatePath('/');
+        return { message: "Removed from cart successfully" };
+    } else {
+        const cartCookie = cookies().get("cartid");
+        if (cartCookie) {
+            const idCart = JSON.parse(cartCookie.value);
+            await prisma.cartItem.delete({
+                where: {
+                    cartId_productId: {
+                        cartId: idCart,
+                        productId,
+                    },
+                },
+            });
+            revalidatePath('/');
+            return { message: "Removed from cart successfully" };
+        }
+    }
 }
