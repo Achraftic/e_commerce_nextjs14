@@ -10,16 +10,16 @@ import { LoginAuthSchema, SignUpAuthSchema } from "@/shema/shema"
 import { useState } from "react"
 import { z } from "zod"
 import ButtonSubmit from "./ButtonSubmit"
+import { FaOpencart } from "react-icons/fa"
 
 type FormProps = {
     type: "signup" | "signin"
 }
 
 type SignUpErrors = z.inferFlattenedErrors<typeof SignUpAuthSchema>;
-type SignInErrors = z.inferFlattenedErrors<typeof LoginAuthSchema>;
 
 export default function Form({ type }: FormProps) {
-    const [error, setError] = useState<SignUpErrors | SignInErrors | undefined>(undefined);
+    const [error, setError] = useState<SignUpErrors | undefined>(undefined);
     const [errorServer, setErrorServer] = useState<string | undefined>(undefined);
 
     const handleAuth = async (formData: FormData) => {
@@ -56,11 +56,11 @@ export default function Form({ type }: FormProps) {
         <>
             <div>
 
-                <Image src={logo} alt='logo' className='m-auto' width={30} height={30} />
-                <h1 className='text-lg mt-5 text-dark font-semibold text-center'>
+                <FaOpencart className='text-2xl m-auto text-dark' />
+                <h1 className='text-lg mt-2 text-dark font-semibold text-center'>
                     {type === "signin" ? "Welcome back" : "Create your account"}
                 </h1>
-                <p className='text-center text-zinc-500'>
+                <p className='text-center text-xs text-zinc-500'>
                     {type === "signin" ? "Please sign in to your account" : "Let's get started with us"}
                 </p>
             </div>
@@ -104,9 +104,9 @@ export default function Form({ type }: FormProps) {
             </form>
 
             <div className='px-5'>
-                <div className='flex items-center text-zinc-300'>
+                <div className='flex items-center justify-center text-zinc-300'>
                     <span className='h-px w-full bg-zinc-200'></span>
-                    <span>or</span>
+                    <span className="  mb-1 mx-1">or</span>
                     <span className='h-px w-full bg-zinc-200'></span>
                 </div>
 

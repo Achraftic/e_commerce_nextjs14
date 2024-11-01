@@ -33,7 +33,7 @@ export default function ContactPage() {
     return (
         <div className='my-10'>
             <div className='mb-20'>
-                <h1 className="md:text-5xl text-4xl font-semibold text-center">Contact our friendly team</h1>
+                <h1 className="sm:text-4xl text-3xl font-semibold text-center">Contact our friendly team</h1>
                 <p className="text-zinc-500 text-center text-base mt-4">We’re here to help. Reach out to us</p>
             </div>
 
@@ -56,7 +56,7 @@ export default function ContactPage() {
                 ))}
             </div>
             <div className="mt-28 mb-16 px-4">
-                <h1 className="text-4xl font-semibold text-center mb-8">Frequently Asked Questions</h1>
+                <h1 className="sm:text-4xl text-3xl font-semibold text-center mb-8">Frequently Asked Questions</h1>
 
                 <div className="flex flex-col items-center  gap-2">
                     <FAQItem

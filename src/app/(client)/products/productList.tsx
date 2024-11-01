@@ -18,7 +18,7 @@ export default async function ProductList({ searchParams }: ProductListProps) {
         )
     }
     return (
-        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 sm:max-w-full   max-w-[320px] m-auto  gap-5">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 sm:max-w-full   max-w-[420px] m-auto  gap-5">
             {products.map((product) => (
                 <Product product={product} key={product.id} />
             ))}

@@ -1,5 +1,7 @@
 
 import { CartItemsType } from "@/types/type";
+import React from "react";
+
 
 export function handleMergeArray(array1: CartItemsType[], array2: CartItemsType[]): CartItemsType[] {
     // Create a map to hold merged cart items
@@ -38,4 +40,31 @@ export function handleMergeArray(array1: CartItemsType[], array2: CartItemsType[
 
 export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+import { useEffect, useRef } from 'react';
+
+export function useDebounce<T extends (...args: any[]) => void>(callback: T, delay: number) {
+    const timerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+    const debouncedCallback = React.useCallback((...args: Parameters<T>) => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
+
+        timerRef.current = setTimeout(() => {
+            callback(...args);
+        }, delay);
+    }, [callback, delay]);
+
+    // Cleanup function
+    React.useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, []);
+
+    return debouncedCallback;
 }

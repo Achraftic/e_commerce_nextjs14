@@ -7,38 +7,52 @@ import { redirect } from "next/navigation";
 import { cache } from "react";
 
 
-export const fetchProducts = async (searchParams: { category?: string; price?: string }) => {
+export const fetchProducts = async (searchParams: { category?: string; price?: string; s?: string }) => {
+    // Extract categories from the searchParams
+    const categories = searchParams.category ? searchParams.category.split(',').filter(Boolean) : [];
 
-    const categories = searchParams?.category ? searchParams.category.split(',').filter(Boolean) : [];
+    // Parse price, with a fallback to 0 if it's not provided
+    const price = searchParams.price ? parseFloat(searchParams.price) : 0;
 
-    const price = searchParams.price ? parseFloat(searchParams.price) : 0
+    // Create a base query for fetching products
+    const whereConditions: any = {
+        AND: [
+            ...(categories.length > 0 ? [{
+                Category: {
+                    name: {
+                        in: categories,
+                    },
+                },
+            }] : []),
+            {
+                price: {
+                    gte: price,
+                },
+            },
+        ],
+    };
+
+    // Check if there's a search term and add to the where conditions if it exists
+    if (searchParams.s) {
+        whereConditions.AND.push({
+            name: {
+                contains: searchParams.s, // Assuming 'name' is the field to search
+                
+              
+            },
+        });
+    }
+
+    // Fetch products from the database
     const products = await prisma.product.findMany({
         include: {
             Category: true,
         },
-        where: {
-            AND: [
-
-                ...(categories.length > 0 ? [{
-                    Category: {
-                        name: {
-                            in: categories,
-                        },
-                    },
-                }] : []),
-
-                {
-                    price: {
-                        gte: price,
-                    },
-                },
-            ],
-        },
+        where: whereConditions,
         orderBy: {
-            price: 'desc',
+            price: 'desc', // Order by price descending
         },
     });
-
 
     return products;
 };

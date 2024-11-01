@@ -17,6 +17,7 @@ export async function FilterProduct({ searchParams }: {
     searchParams: {
         category: string
         price: string
+        s: string,
 
     }
 }) {
@@ -29,9 +30,12 @@ export async function FilterProduct({ searchParams }: {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <span className="bg-primary text-white rounded-full p-1.5 cursor-pointer" >
+                <span className=" text-zinc-800 rounded-full p-1.5 cursor-pointer flex items-center gap-1" >
 
-                    <MdFilterList size={17} className="  " />
+                    <MdFilterList size={18} className="  " />
+                    <span className=" text-base font-semibold capitalize">
+                        filters
+                    </span>
                 </span>
             </SheetTrigger>
             <SheetContent side="left">
