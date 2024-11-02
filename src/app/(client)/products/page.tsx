@@ -27,8 +27,8 @@ export default async function Home({ searchParams }: homeProps) {
       <Suspense fallback={<SkeletonList />}>
         <ProductList products={products} />
       </Suspense>
-
-      <PaginationComp searchParams={searchParams} numpage={numpage} totalItems={products.length} itemsPerPage={2} />
+{products.length>0 &&   <PaginationComp searchParams={searchParams} numpage={numpage} totalItems={products.length} itemsPerPage={2} />}
+    
     </>
   );
 }

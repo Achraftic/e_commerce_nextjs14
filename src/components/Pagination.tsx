@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import {
     Pagination,
     PaginationContent,
@@ -23,8 +23,8 @@ export function PaginationComp({ totalItems, itemsPerPage, numpage, searchParams
     const { currentPage, setCurrentPage } = usePaginationStore();
 
     const totalPages = Math.ceil(totalItems / itemsPerPage);
-    
-  
+
+
 
     const isactive = (page: number) => {
         if (page == 1 && numpage === undefined) {
@@ -46,7 +46,7 @@ export function PaginationComp({ totalItems, itemsPerPage, numpage, searchParams
 
     const renderPageLinks = () => {
         const pages = [];
-        for (let i = 1; i <= totalItems; i++) {
+        for (let i = 1; i < totalItems; i++) {
             pages.push(
                 <PaginationItem key={i}>
                     <PaginationLink
@@ -61,17 +61,19 @@ export function PaginationComp({ totalItems, itemsPerPage, numpage, searchParams
         }
         return pages;
     };
+    
 
     return (
         <Pagination className="mt-20">
             <PaginationContent>
-                <PaginationItem>
+                {numpage > 1 && <PaginationItem>
                     <PaginationPrevious
                         href={`/products?page=${numpage - 1}`}
                         onClick={() => setCurrentPage(Math.max(1, numpage - 1))}
 
                     />
-                </PaginationItem>
+                </PaginationItem>}
+
 
                 {/* Render page numbers */}
                 {renderPageLinks()}
@@ -82,14 +84,14 @@ export function PaginationComp({ totalItems, itemsPerPage, numpage, searchParams
                         <PaginationEllipsis />
                     </PaginationItem>
                 )}
-
-                <PaginationItem>
+                {totalPages+1 != numpage && <PaginationItem>
                     <PaginationNext
                         href={`/products?page=${currentPage + 1}`}
                         onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
 
                     />
-                </PaginationItem>
+                </PaginationItem>}
+
             </PaginationContent>
         </Pagination>
     );

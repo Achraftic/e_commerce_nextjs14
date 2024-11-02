@@ -31,12 +31,12 @@ export default async function OneProductPage({ params }: { params: { product_id:
 
           <Image src={product!.imageUrl ? product!.imageUrl : img3} width={300} height={300} alt="ps4" className="   " />
         </div>
-        <div className='  flex flex-col flex-1 gap-3 px-5  '>
+        <div className='  flex flex-col flex-1 gap-3 md:px-5  '>
 
 
           <div>
             <p className='text-zinc-400/80 text-xs px-1 '>{product?.Category?.name} </p>
-            <h1 className='  text-5xl font-semibold'>{product?.name} </h1>
+            <h1 className='  sm:text-5xl text-4xl font-semibold'>{product?.name} </h1>
 
           </div>
 

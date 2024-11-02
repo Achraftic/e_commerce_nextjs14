@@ -12,7 +12,7 @@ export default async function ProductList({ products }: {products:ProductsType[]
         return (
             <div className="grid place-items-center my-20">
                 <HiOutlineFaceFrown size={50}  className='text-primary'/>
-                <p className="text-center text-zinc-500 font-semibold text-xl col-span-full">No products found</p>
+                <p className="text-center text-zinc-600 font-semibold text-2xl col-span-full">No products found</p>
                 <p className='text-center text-zinc-400'>Try changing your filters</p>
 
             </div>
