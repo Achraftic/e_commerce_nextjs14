@@ -7,16 +7,16 @@ const ProductWithCategory = Prisma.validator<Prisma.ProductDefaultArgs>()({
 })
 export type ProductsType = Prisma.ProductGetPayload<typeof ProductWithCategory>
 
-const CommandeWithUser=Prisma.validator<Prisma.CommandeDefaultArgs>()({
+const CommandeWithUser = Prisma.validator<Prisma.CommandeDefaultArgs>()({
   include: { user: true },
 })
 
 
-const OrderItemWithUser=Prisma.validator<Prisma.LigneCommandeDefaultArgs>()({
+const OrderItemWithUser = Prisma.validator<Prisma.LigneCommandeDefaultArgs>()({
   include: {
-    commande:{
-      select:{
-        montant_total:true,
+    commande: {
+      select: {
+        montant_total: true,
       }
     },
     product: {
@@ -47,8 +47,15 @@ const CartItemWithProduct = Prisma.validator<Prisma.CartItemDefaultArgs>()({
       },
     },
   },
-})  ; 
+});
 
 export type CartItemsType = Prisma.CartItemGetPayload<typeof CartItemWithProduct>;
 
-export type UserProfile = Pick<User, "name" | "email" | "image"|"id">;
+export type UserProfile = Pick<User, "name" | "email" | "image" | "id">;
+
+export type SearchParmFilterType = {
+  category?: string
+  price: string
+  s: string
+  page: number
+}

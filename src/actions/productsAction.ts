@@ -4,58 +4,73 @@ import { revalidatePath, unstable_cache } from "next/cache";
 import prisma from "../../prisma/db";
 import { UTApi } from "uploadthing/server";
 import { redirect } from "next/navigation";
-import { cache } from "react";
+import NotFound from "@/app/not-found";
 
 
-export const fetchProducts = async (searchParams: { category?: string; price?: string; s?: string }) => {
-    // Extract categories from the searchParams
-    const categories = searchParams.category ? searchParams.category.split(',').filter(Boolean) : [];
 
-    // Parse price, with a fallback to 0 if it's not provided
-    const price = searchParams.price ? parseFloat(searchParams.price) : 0;
+export const fetchProducts = async (searchParams: {
+    category?: string; 
+    price?: string; 
+    s?: string;
+    page?: number 
+}) => {
+    
+    try {
+        // Extract and parse search parameters
+        const categories = searchParams.category ? searchParams.category.split(',').filter(Boolean) : [];
+        const price = searchParams.price ? parseFloat(searchParams.price) : 0;
+        const page = searchParams.page || 1; // Default to page 1 if not provided
 
-    // Create a base query for fetching products
-    const whereConditions: any = {
-        AND: [
-            ...(categories.length > 0 ? [{
-                Category: {
-                    name: {
-                        in: categories,
+        // Create base query for product filtering
+        const whereConditions: any = {
+            AND: [
+                ...(categories.length > 0 ? [{
+                    Category: {
+                        name: {
+                            in: categories,
+                        },
+                    },
+                }] : []),
+                {
+                    price: {
+                        gte: price,
                     },
                 },
-            }] : []),
-            {
-                price: {
-                    gte: price,
+            ],
+        };
+
+        // Add search term to conditions if provided
+        if (searchParams.s) {
+            whereConditions.AND.push({
+                name: {
+                    contains: searchParams.s,
                 },
-            },
-        ],
-    };
+            });
+        }
 
-    // Check if there's a search term and add to the where conditions if it exists
-    if (searchParams.s) {
-        whereConditions.AND.push({
-            name: {
-                contains: searchParams.s, // Assuming 'name' is the field to search
+        // Fetch products from the database with filtering, ordering, and pagination
+       
+        const products = await prisma.product.findMany({
+            include: {
+                Category: true,
                 
-              
             },
+            where: whereConditions,
+            orderBy: {
+                price: 'desc',
+            },
+            
+            take: 3, // Number of items per page
+            skip: (page - 1) * 3,
         });
+
+        return products;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw new Error("Failed to fetch products");
     }
-
-    // Fetch products from the database
-    const products = await prisma.product.findMany({
-        include: {
-            Category: true,
-        },
-        where: whereConditions,
-        orderBy: {
-            price: 'desc', // Order by price descending
-        },
-    });
-
-    return products;
 };
+
 
 
 export const AddProduct = async (data: FormData) => {

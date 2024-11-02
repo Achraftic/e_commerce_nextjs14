@@ -2,11 +2,12 @@ import React from 'react'
 import { fetchProducts } from '@/actions/productsAction';
 import Product from '@/components/Product';
 import { HiOutlineFaceFrown } from "react-icons/hi2";
+import { ProductsType } from '@/types/type';
 interface ProductListProps {
-    searchParams: { category?: string, price?: string }; // Correctly type the products as an array of ProductsType
+    searchParams: { category?: string, price?: string,s?: string, page?: number }; // Correctly type the products as an array of ProductsType
 }
-export default async function ProductList({ searchParams }: ProductListProps) {
-    const products = await fetchProducts(searchParams);
+export default async function ProductList({ products }: {products:ProductsType[]}) {
+  
     if (products.length === 0) {
         return (
             <div className="grid place-items-center my-20">

@@ -8,6 +8,7 @@ import { Category } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import SearchInput from './SearchInput';
 import { useDebounce } from '@/utils/utils';
+import usePaginationStore from '@/store/usePaginationStore';
 
 export default function Filter({ categories, searchParams }: { categories: Category[], searchParams: { category?: string, price: string, s: string } }) {
     const categorySearched = searchParams.category?.split(",").filter(Boolean);
@@ -15,7 +16,7 @@ export default function Filter({ categories, searchParams }: { categories: Categ
     const [search, setSearch] = useState(searchParams.s || "");
     const [price, setPrice] = useState<number>(+searchParams.price || 0);
     const router = useRouter();
-
+    const { currentPage, setCurrentPage } = usePaginationStore();
     // Debounce the search input
     const debouncedSearch = useDebounce((value: string) => {
         setSearch(value);
@@ -30,7 +31,7 @@ export default function Filter({ categories, searchParams }: { categories: Categ
 
             return updatedCategories;
         });
-     
+
     }
 
     // Handle price change wit
@@ -52,9 +53,12 @@ export default function Filter({ categories, searchParams }: { categories: Categ
         if (search) {
             queryParams.set("s", search);
         }
+        if (currentPage) {
+            queryParams.set("page", String(currentPage));
+        }
 
         router.push(`/products?${queryParams.toString()}`);
-    }, [price, selectedCategories, search, router]); // Include `search` in dependencies
+    }, [price, selectedCategories, search, router, currentPage]); // Include `search` in dependencies
 
     return (
         <form className="my-5 p-2 flex flex-col gap-6">

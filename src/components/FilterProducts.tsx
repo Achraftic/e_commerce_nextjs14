@@ -12,15 +12,13 @@ import {
 import { MdFilterList } from "react-icons/md"
 import Filter from "./filter"
 import prisma from "../../prisma/db"
+import { SearchParmFilterType } from "@/types/type"
 
-export async function FilterProduct({ searchParams }: {
-    searchParams: {
-        category: string
-        price: string
-        s: string,
 
-    }
-}) {
+type FilterProductProps = {
+    searchParams: SearchParmFilterType
+}
+export async function FilterProduct({ searchParams }: FilterProductProps) {
     const categories = await prisma.category.findMany({
         select: {
             name: true,
