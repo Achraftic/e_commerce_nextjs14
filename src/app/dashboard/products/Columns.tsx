@@ -10,6 +10,9 @@ import Image from "next/image"
 import img3 from "@/public/images_product/pngwing.com.png";
 import Link from "next/link"
 import { deleteProduct } from "@/actions/productsAction"
+import { Alert } from "@/components/dashboard/Alert"
+import { useState } from "react"
+import { toast } from "sonner"
 
 // Define the ProductsType structure
 
@@ -117,8 +120,9 @@ export const columns: ColumnDef<ProductsType>[] = [
         enableHiding: false,
         cell: ({ row }) => {
             const product = row.original
+            const [isOpen, setIsOpen] = useState(false);
             return (
-                <DropdownMenu >
+                <DropdownMenu  open={isOpen} onOpenChange={setIsOpen} >
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
                             <span className="sr-only">Open menu</span>
@@ -131,12 +135,26 @@ export const columns: ColumnDef<ProductsType>[] = [
                             <Link href={`/dashboard/products/edit/${product.id}`}>Edit</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>View</DropdownMenuItem>
+
                         <DropdownMenuItem
+                            asChild
                             className="text-red-400 hover:text-red-500 "
-                            onClick={async () => await deleteProduct(product.id)}
+
                         >
-                            Delete
+                            <Alert fn={async() => {
+                                setIsOpen(false)
+                                await deleteProduct(product.id)
+                                toast.success("Category deleted successfully")
+                            }
+
+                            }>
+                                <div className="p-1.5 rounded-md text-red-500 cursor-pointer hover:bg-zinc-100">
+                                    
+                                Delete
+                                </div>
+                            </Alert>
                         </DropdownMenuItem>
+                       
 
                     </DropdownMenuContent>
                 </DropdownMenu>

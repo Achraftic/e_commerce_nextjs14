@@ -6,11 +6,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { Category } from "@prisma/client"
-import Dialogue  from "@/components/dashboard/Dialogue"
+import Dialogue from "@/components/dashboard/Dialogue"
 import { deleteCategory } from "@/actions/CategoryAction"
+import { Alert } from "@/components/dashboard/Alert"
+import { useState } from "react"
+import { toast } from "sonner"
 
 
 export const columns: ColumnDef<Category>[] = [
+
     {
         id: "select",
         header: ({ table }) => (
@@ -52,19 +56,20 @@ export const columns: ColumnDef<Category>[] = [
         header: "Category Name",
         cell: ({ row }) => <div className="capitalize">{row.original.name}</div>,
         enableGlobalFilter: true,
-       
+
 
     },
-    
+
 
     {
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
             const category = row.original
+            const [isOpen, setIsOpen] = useState(false);
             return (
-                <DropdownMenu >
-                    <DropdownMenuTrigger asChild>
+                <DropdownMenu open={isOpen} onOpenChange={setIsOpen} >
+                    <DropdownMenuTrigger asChild >
                         <Button variant="ghost" className="h-8 w-8 p-0">
                             <span className="sr-only">Open menu</span>
                             <DotsHorizontalIcon className="h-4 w-4" />
@@ -75,17 +80,29 @@ export const columns: ColumnDef<Category>[] = [
                         <DropdownMenuItem asChild>
                             <Dialogue id={category.id} >
 
-                              <span className="px-2 rounded-md py-1.5 block hover:bg-zinc-100">
-                              Edit
-                                </span> 
+                                <span className="px-2 rounded-md py-1.5 block hover:bg-zinc-100">
+                                    Edit
+                                </span>
                             </Dialogue>
                         </DropdownMenuItem>
-                      
+
                         <DropdownMenuItem
+                            asChild
                             className="text-red-400 hover:text-red-500 "
-                            onClick={async ()=> deleteCategory(category.id)}
+
                         >
-                            Delete
+                            <Alert fn={() => {
+                                setIsOpen(false)
+                                deleteCategory(category.id)
+                                toast.success("Category deleted successfully")
+                            }
+
+                            }>
+                                <div className="p-1.5 rounded-md text-red-500 cursor-pointer hover:bg-zinc-100">
+                                    
+                                Delete
+                                </div>
+                            </Alert>
                         </DropdownMenuItem>
 
                     </DropdownMenuContent>
