@@ -1,6 +1,5 @@
 'use client'
-import logo from "@/public/image.png"
-import Image from 'next/image'
+
 import { Label } from '@radix-ui/react-label'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'

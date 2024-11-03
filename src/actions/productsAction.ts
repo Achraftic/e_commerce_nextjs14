@@ -5,16 +5,17 @@ import prisma from "../../prisma/db";
 import { UTApi } from "uploadthing/server";
 import { redirect } from "next/navigation";
 import NotFound from "@/app/not-found";
+import { cookies } from "next/headers";
 
 
 
 export const fetchProducts = async (searchParams: {
-    category?: string; 
-    price?: string; 
+    category?: string;
+    price?: string;
     s?: string;
-    page?: number 
+    page?: number
 }) => {
-    
+
     try {
         // Extract and parse search parameters
         const categories = searchParams.category ? searchParams.category.split(',').filter(Boolean) : [];
@@ -49,17 +50,17 @@ export const fetchProducts = async (searchParams: {
         }
 
         // Fetch products from the database with filtering, ordering, and pagination
-       
+
         const products = await prisma.product.findMany({
             include: {
                 Category: true,
-                
+
             },
             where: whereConditions,
             orderBy: {
                 price: 'desc',
             },
-            
+
             take: 3, // Number of items per page
             skip: (page - 1) * 3,
         });
@@ -193,7 +194,7 @@ export const getLastestProducts = async () => {
 }
 
 export const getAllProducts = unstable_cache(async () => {
-  const data=  await prisma.product.findMany({
+    const data = await prisma.product.findMany({
         include: {
             Category: true
         },
@@ -203,3 +204,27 @@ export const getAllProducts = unstable_cache(async () => {
     })
     return data
 })
+
+
+export const getProductsById = async (id: number) => {
+//   const cookieStore = cookies();
+//   let recentlyViewed = cookieStore.get("recentlyViewed")?.value;
+
+//   let viewedArray = recentlyViewed ? JSON.parse(recentlyViewed) : [];
+
+//   if (!viewedArray.includes(id)) {
+//     if (viewedArray.length >= 5) {
+//       viewedArray.shift();
+//     }
+//     viewedArray.push(id);
+//     console.log(viewedArray);
+//     cookieStore.set("recentlyViewed", JSON.stringify(viewedArray));
+//   }
+
+  const product = await prisma.product.findUnique({
+    where: { id },
+    include: { Category: true }
+  });
+
+  return product;
+};

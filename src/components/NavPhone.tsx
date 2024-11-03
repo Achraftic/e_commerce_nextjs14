@@ -17,12 +17,15 @@ export default function NavPhone({ setToggle, toggle }: NavPhoneProps) {
   const normalClass = "hover:font-medium hover:text-primary transition-all";
 
   return (
+    
+    
     <AnimatePresence>
+    
       {toggle && (
         <motion.div
           key="nav-phone"
           initial={{ width: 0 }}
-          animate={{ width: "240px" }}
+          animate={{ width: "250px" }}
           exit={{ width: 0, transition: { duration: 0.05 } }}
           transition={{ duration: 0.3 }}
           className="p-4 fixed left-0 h-screen shadow-xl top-0 bg-zinc-50 md:hidden z-50 overflow-hidden"
@@ -58,6 +61,7 @@ export default function NavPhone({ setToggle, toggle }: NavPhoneProps) {
           </motion.ul>
         </motion.div>
       )}
+  
     </AnimatePresence>
   );
 }

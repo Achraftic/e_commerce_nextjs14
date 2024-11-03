@@ -6,6 +6,7 @@ import Link from "next/link";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import { dashboardRoutes } from "@/routes";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 const activeClass = " bg-zinc-100 text-zinc-600 font-medium";
 const normalClass = "text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-600 hover:font-medium";
@@ -13,33 +14,29 @@ const normalClass = "text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-
 export default function SideBar() {
     const [toggle, setToggle] = useState(false);
     const currentPath = usePathname();
-    const [width, setWidth] = useState(0); // Initialize width as 0
+    const [width, setWidth] = useState(0);
 
     useEffect(() => {
-        // Check if window is defined before accessing its properties
         if (typeof window !== "undefined") {
-            setWidth(window.innerWidth); // Set the initial width on client side
+            const initialWidth = window.innerWidth;
+            setWidth(initialWidth);
+            setToggle(initialWidth < 768); // Set toggle to true if initial width is less than 768
 
             const handleResize = () => {
-                setWidth(window.innerWidth);
+                const newWidth = window.innerWidth;
+                setWidth(newWidth);
+                setToggle(newWidth < 768); // Toggle to true if new width is less than 768
             };
 
-            window.addEventListener('resize', handleResize);
+            window.addEventListener("resize", handleResize);
 
-            // Cleanup the event listener on component unmount
             return () => {
-                window.removeEventListener('resize', handleResize);
+                window.removeEventListener("resize", handleResize);
             };
         }
     }, []);
 
-    const sidebarWidth = () => {
-        if (width < 768 || toggle) {
-            return "60px";
-        } else {
-            return "220px";
-        }
-    };
+    const sidebarWidth = () => (width < 768 || toggle ? "60px" : "220px");
 
     return (
         <motion.div
@@ -49,16 +46,11 @@ export default function SideBar() {
             className="sticky h-screen py-6 md:w-full w-max top-0 flex flex-col justify-center bg-transparent px-2 "
         >
             {/* Sidebar Header */}
-            <div  
-            className={`cursor-pointer absolute ${toggle && "rotate-180"} rounded-full p-0.5 bg-zinc-100  shadow max-md:hidden top-3 text-zinc-400 -right-2`} 
-            onClick={() => setToggle(!toggle)} 
+            <div
+                className={`cursor-pointer absolute ${toggle && "rotate-180"} rounded-full p-0.5 bg-zinc-100 shadow max-md:hidden top-3 text-zinc-400 -right-2`}
+                onClick={() => setToggle(!toggle)}
             >
-
-            <IoChevronBackOutline 
-                size={13} 
-              
-               
-            />
+                <IoChevronBackOutline size={13} />
             </div>
             <h1 className="flex mt-2 items-center gap-2 text-lg font-semibold md:w-full w-min mx-auto">
                 <motion.span layout>
@@ -84,9 +76,27 @@ export default function SideBar() {
                         <span
                             className={`${link.path === currentPath ? activeClass : normalClass} p-2 rounded-md md:text-sm text-xl flex max-md:justify-center m-auto items-center space-x-2`}
                         >
-                            <motion.span className="text-lg m-auto">
-                                {link.icon}
-                            </motion.span>
+                            {!toggle && (
+                                <motion.span className="text-lg m-auto">
+                                    {link.icon}
+                                </motion.span>
+                            )}
+
+                            {toggle && (
+                                <TooltipProvider delayDuration={0.1}>
+                                    <Tooltip>
+                                        <TooltipTrigger>
+                                            <motion.span className="text-lg m-auto">
+                                                {link.icon}
+                                            </motion.span>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            {link.name}
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            )}
+
                             {!toggle && (
                                 <motion.span
                                     initial={{ y: 10, opacity: 0 }}

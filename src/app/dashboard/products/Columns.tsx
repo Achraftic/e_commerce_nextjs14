@@ -27,8 +27,9 @@ export const columns: ColumnDef<ProductsType>[] = [
                     (table.getIsSomePageRowsSelected() && "indeterminate")
 
                 }
-                onCheckedChange={(value) => {table.toggleAllPageRowsSelected(!!value)
-                    
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+
                 }}
                 aria-label="Select all"
             />
@@ -38,7 +39,7 @@ export const columns: ColumnDef<ProductsType>[] = [
                 checked={row.getIsSelected()} // Boolean value expected here
                 onCheckedChange={(value) => {
                     row.toggleSelected(!!value);
-                    console.log(row.original); 
+                    console.log(row.original);
                 }}
                 aria-label="Select row"
             />
@@ -122,7 +123,7 @@ export const columns: ColumnDef<ProductsType>[] = [
             const product = row.original
             const [isOpen, setIsOpen] = useState(false);
             return (
-                <DropdownMenu  open={isOpen} onOpenChange={setIsOpen} >
+                <DropdownMenu open={isOpen} onOpenChange={setIsOpen} >
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
                             <span className="sr-only">Open menu</span>
@@ -141,7 +142,7 @@ export const columns: ColumnDef<ProductsType>[] = [
                             className="text-red-400 hover:text-red-500 "
 
                         >
-                            <Alert fn={async() => {
+                            <Alert fn={async () => {
                                 setIsOpen(false)
                                 await deleteProduct(product.id)
                                 toast.success("Category deleted successfully")
@@ -149,12 +150,12 @@ export const columns: ColumnDef<ProductsType>[] = [
 
                             }>
                                 <div className="p-1.5 rounded-md text-red-500 cursor-pointer hover:bg-zinc-100">
-                                    
-                                Delete
+
+                                    Delete
                                 </div>
                             </Alert>
                         </DropdownMenuItem>
-                       
+
 
                     </DropdownMenuContent>
                 </DropdownMenu>
