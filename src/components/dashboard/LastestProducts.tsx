@@ -13,7 +13,7 @@ import H1 from '../ui/h1'
 export default async function LastestProducts() {
   const products = await getLastestProducts()
   return (
-    <div className='flex-1 bg-zinc-100/70 shadow shadow-stone-200/60   rounded-md p-4 overflow-x-auto'>
+    <div className='flex-1 bg-zinc-100/70 dark:bg-zinc-800 shadow shadow-stone-200/60 dark:shadow-zinc-700/70   rounded-md p-4 overflow-x-auto'>
       <H1 className='text-lg m-0  w-max'>Lastest Product</H1>
 
 

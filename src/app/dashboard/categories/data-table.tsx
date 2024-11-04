@@ -68,19 +68,19 @@ export function DataTable<TData>({
           <CiSearch className="absolute right-2 text-zinc-500 top-2" size={18} />
         </div>
         <Dialogue>
-          <Button   className="h-7 text-xs px-2">
-           
-              <PlusIcon className="mr-1" scale={15} /> 
-              Add Category
+          <Button className="h-7 text-xs px-2">
 
-           
+            <PlusIcon className="mr-1" scale={15} />
+            Add Category
+
+
           </Button>
         </Dialogue>
       </div>
 
       <div className="rounded-md">
         <Table>
-          <TableHeader className="bg-zinc-100">
+          <TableHeader className="bg-zinc-100  dark:bg-zinc-800">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (

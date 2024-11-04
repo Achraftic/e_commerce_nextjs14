@@ -8,8 +8,8 @@ import { usePathname } from "next/navigation";
 import { dashboardRoutes } from "@/routes";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
-const activeClass = " bg-zinc-100 text-zinc-600 font-medium";
-const normalClass = "text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-600 hover:font-medium";
+const activeClass = " bg-zinc-100 dark:bg-zinc-50 text-zinc-600 dark:text-zinc-800 font-medium";
+const normalClass = "text-zinc-500  transition hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-50 hover:dark:text-zinc-800 hover:font-medium";
 
 export default function SideBar() {
     const [toggle, setToggle] = useState(false);
@@ -36,7 +36,7 @@ export default function SideBar() {
         }
     }, []);
 
-    const sidebarWidth = () => (width < 768 || toggle ? "60px" : "220px");
+    const sidebarWidth = () => (width < 768 || toggle ? "50px" : "220px");
 
     return (
         <motion.div
@@ -47,7 +47,7 @@ export default function SideBar() {
         >
             {/* Sidebar Header */}
             <div
-                className={`cursor-pointer absolute ${toggle && "rotate-180"} rounded-full p-0.5 bg-zinc-100 shadow max-md:hidden top-3 text-zinc-400 -right-2`}
+                className={`cursor-pointer absolute ${toggle && "rotate-180"} rounded-full p-0.5 bg-zinc-100 shadow max-md:hidden top-3 text-zinc-400 -right-2 dark:bg-zinc-700 dark:text-zinc-400`}
                 onClick={() => setToggle(!toggle)}
             >
                 <IoChevronBackOutline size={13} />

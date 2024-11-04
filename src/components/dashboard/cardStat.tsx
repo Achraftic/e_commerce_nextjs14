@@ -36,46 +36,46 @@ export default function CardStat() {
     return (
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4 *:rounded-lg mt-6">
             {/* Products Count */}
-            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center gap-4 ">
-                <div className="bg-purple-300/40 p-3 rounded-full">
+            <div className="bg-zinc-100/70 dark:bg-zinc-800 shadow-zinc-100 dark:text-zinc-50 py-3 shadow-md dark:shadow-sm    px-4 flex items-center gap-4 ">
+                <div className="bg-purple-300/40 dark:bg-purple-300 p-3 rounded-full">
                     <BsBoxSeam className="text-purple-800" size={20} />
                 </div>
                 <div className="">
-                    <H1 className="mb-0 text-2xl text-zinc-900">{stats.products_count}</H1>
-                    <span className="text-zinc-400 font-medium">Products</span>
+                    <H1 className="mb-0 text-2xl text-zinc-900 dark:text-zinc-100">{stats.products_count}</H1>
+                    <span className="text-zinc-400 dark:text-zinc-400 font-medium">Products</span>
                 </div>
             </div>
 
             {/* Orders Count */}
-            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center  gap-4 ">
-                <div className="bg-green-300/40 p-3 rounded-full">
+            <div className="bg-zinc-100/70 dark:bg-zinc-800 shadow-zinc-100 dark:text-zinc-50 py-3 shadow-md dark:shadow-sm    px-4 flex items-center  gap-4 ">
+                <div className="bg-green-300/40 dark:bg-green-300 p-3 rounded-full">
                     <BsCartCheck className="text-green-800" size={20} />
                 </div>
                 <div className="">
-                    <H1 className="mb-0 text-2xl text-zinc-900">{stats.order}</H1>
-                    <span className="text-zinc-400 font-medium">Orders</span>
+                    <H1 className="mb-0 text-2xl text-zinc-900 dark:text-zinc-100">{stats.order}</H1>
+                    <span className="text-zinc-400  font-medium">Orders</span>
                 </div>
             </div>
 
             {/* Earnings This Month */}
-            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center  gap-4 ">
-                <div className="bg-blue-300/40 p-3 rounded-full">
+            <div className="bg-zinc-100/70 dark:bg-zinc-800 shadow-zinc-100 dark:text-zinc-50 py-3 shadow-md dark:shadow-sm    px-4 flex items-center  gap-4 ">
+                <div className="bg-blue-300/40 dark:bg-blue-300 p-3 rounded-full">
                     <BsCurrencyDollar className="text-blue-800" size={20} />
                 </div>
                 <div className="">
-                    <H1 className="mb-0 text-2xl text-zinc-900">${stats.earnThisMonth}</H1>
-                    <span className="text-zinc-400 font-medium">Earnings (This Month)</span>
+                    <H1 className="mb-0 text-2xl text-zinc-900 dark:text-zinc-100">${stats.earnThisMonth}</H1>
+                    <span className="text-zinc-400  font-medium">Earnings (This Month)</span>
                 </div>
             </div>
 
             {/* Earnings This Year */}
-            <div className="bg-zinc-100/70 py-3 shadow-md shadow-zinc-200/50   px-4 flex items-center  gap-4 ">
-                <div className="bg-yellow-300/40 p-3 rounded-full h-max">
+            <div className="bg-zinc-100/70 dark:bg-zinc-800 shadow-zinc-100 dark:text-zinc-50 py-3 shadow-md dark:shadow-sm    px-4 flex items-center  gap-4 ">
+                <div className="bg-yellow-300/40 dark:bg-yellow-300 p-3 rounded-full h-max">
                     <BsCurrencyDollar className="text-yellow-800" size={20} />
                 </div>
                 <div className="">
-                    <H1 className="mb-0 text-2xl text-zinc-900">${stats.earnThisYear}</H1>
-                    <span className="text-zinc-400 font-medium">Earnings (This Year)</span>
+                    <H1 className="mb-0 text-2xl text-zinc-900 dark:text-zinc-100">${stats.earnThisYear}</H1>
+                    <span className="text-zinc-400  font-medium">Earnings (This Year)</span>
                 </div>
             </div>
         </div>
