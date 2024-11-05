@@ -47,7 +47,7 @@ export default function ProductMarketing() {
     }, []);
 
     return (
-        <div className="bg-zinc-900 min-h-[400px] md:flex-nowrap flex-wrap flex items-center p-10  max-w-5xl rounded-md mx-auto my-20 md:gap-0 gap-10">
+        <div className="bg-zinc-900 dark:bg-primary min-h-[400px] md:flex-nowrap flex-wrap flex items-center p-10  max-w-5xl rounded-md mx-auto my-20 md:gap-0 gap-10">
             <div>
                 <span className='text-primary '>Mannete</span>
                 <H1 className="text-zinc-50 text-5xl">Enhance Your Play Controller</H1>
@@ -74,12 +74,12 @@ export default function ProductMarketing() {
                         </div>
 
                     </div>
-                <Button className='px-8 h-10'>Buy Now</Button>
+                <Button className='px-8 h-10 dark:bg-dark'>Buy Now</Button>
 
                 {/* Countdown display */}
              
                   
-             
+       &      
             </div>
 
             <div className="mx-auto my-4">

@@ -34,22 +34,22 @@ export default function ContactPage() {
         <div className='my-10'>
             <div className='mb-20'>
                 <h1 className="sm:text-4xl text-3xl font-semibold text-center">Contact our friendly team</h1>
-                <p className="text-zinc-500 text-center text-base mt-4">We’re here to help. Reach out to us</p>
+                <p className="text-zinc-500 dark:text-zinc-300 text-center text-base mt-4">We’re here to help. Reach out to us</p>
             </div>
 
             <div className="flex gap-4 lg:flex-nowrap flex-wrap max-sm:flex-col">
                 {cardData.map((card, index) => (
                     <div
                         key={index}
-                        className=" flex-1 transition-all hover:shadow-xl hover:shadow-zinc-200/70 border  hover:outline-primary outline outline-transparent shadow-sm border-primary/80 py-4 pl-4 pr-6 rounded-xl"
+                        className=" flex-1 transition-all hover:shadow-xl hover:shadow-zinc-200/70 border  dark:shadow-zinc-900 hover:outline-primary outline outline-transparent shadow-sm border-primary/80 py-4 pl-4 pr-6 rounded-xl"
                     >
-                        <div className="border border-zinc-300/85 text-zinc-800 rounded-lg w-max p-1.5">
+                        <div className="border border-zinc-300/85 text-zinc-800 dark:text-zinc-50 rounded-lg w-max p-1.5">
                             {card.icon}
                         </div>
 
                         <div className="mt-10">
                             <h1 className="text-base font-bold">{card.title}</h1>
-                            <p className="text-zinc-600 font-medium mt-1">{card.description}</p>
+                            <p className="text-zinc-600 dark:text-zinc-500 font-medium mt-1">{card.description}</p>
                             <p className="mt-4 mb-2 font-bold underline">{card.email}</p>
                         </div>
                     </div>

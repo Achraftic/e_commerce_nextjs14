@@ -4,7 +4,7 @@ import H1 from '@/components/ui/h1'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { productSchema } from '@/shema/shema'
-import { Label } from '@radix-ui/react-label'
+import { Label } from '@/components/ui/label'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { PiImageSquareLight } from 'react-icons/pi'
@@ -86,7 +86,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
             <H1>{type === "add" ? "Add" : "Edit"} Products</H1>
             <form action={handleSubmit} className='sm:grid flex flex-col my-5 md:p-5 p-0 grid-cols-3 gap-3 sm:items-center'>
                 {/* Name Input */}
-                <div className='gap-1 grid'>
+                <div className='gap-1.5 grid'>
                     <Label className='text-dark font-semibold'>Name</Label>
                     <Input defaultValue={product?.name} name="name" className='text-xs' placeholder='Product Name' />
                     <div className='error text-red-500 h-2 text-xs'>
@@ -95,7 +95,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                 </div>
 
                 {/* Price Input */}
-                <div className='gap-1 grid'>
+                <div className='gap-1.5 grid'>
                     <Label className='text-dark font-semibold'>Price</Label>
                     <Input defaultValue={product?.price} name="price" type="number" className='text-xs' placeholder='Product Price' />
                     <div className='error text-red-500 h-2 text-xs'>
@@ -104,7 +104,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                 </div>
 
                 {/* Stock Input */}
-                <div className='gap-1 grid'>
+                <div className='gap-1.5 grid'>
                     <Label className='text-dark font-semibold'>Stock</Label>
                     <Input defaultValue={product?.stock} name="stock" type="number" className='text-xs' placeholder='Product Stock' />
                     <div className='error text-red-500 h-2 text-xs'>
@@ -113,7 +113,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                 </div>
 
                 {/* Description Textarea */}
-                <div className='gap-1 grid col-span-3'>
+                <div className='gap-1.5 grid col-span-3'>
                     <Label className='text-dark font-semibold'>Description</Label>
                     <Textarea defaultValue={product?.description as string} name="description" className='text-xs h-40' placeholder='Product Description' />
                     <div className='error text-red-500 h-2 text-xs'>
@@ -122,13 +122,13 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                 </div>
 
                 {/* Category Select */}
-                <div className='gap-1 grid col-span-3'>
+                <div className='gap-1.5 grid col-span-3'>
                     <Label className='text-dark font-semibold'>Category</Label>
 
-                    <select name="category" id="" className='bg-transparent border border-zinc-200 p-2 text-xs ' >
-                        <option value="">Select Category</option>
+                    <select name="category" id="" className='bg-transparent border border-zinc-200 dark:border-zinc-800 p-2 text-xs ' >
+                        <option value="" className='dark:text-black'>Select Category</option>
                         {categories.map((category) => (
-                            <option selected={category.id === product?.Category?.id} key={category.id} value={category.id}>
+                            <option className='dark:text-black' selected={category.id === product?.Category?.id} key={category.id} value={category.id}>
                                 {category.name}
                             </option>
                         ))}
@@ -140,12 +140,12 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                 </div>
 
                 {/* Upload Component */}
-                <div className='gap-1 grid col-span-3'>
+                <div className='gap-1.5 grid col-span-3'>
                     <Label className='text-dark font-semibold'>Upload Image</Label>
-                    <div className="w-full py-9 bg-zinc-50 rounded-2xl border border-gray-300 gap-3 grid border-dashed">
+                    <div className="w-full py-9 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-gray-300 gap-3 grid border-dashed">
 
 
-                        <div className="grid gap-1">
+                        <div className="grid gap-1.5">
                             <PiImageSquareLight className='text-center m-auto' size={30} />
                             <h2 className="text-center text-gray-300 text-xs leading-4">PNG, JPG or smaller than 15MB</h2>
                         </div>
@@ -154,7 +154,7 @@ export default function ProductForm({ type = "add", product }: ProductForm) {
                             <div className="flex items-center justify-center">
                                 <label>
                                     <input type="file" name='image' hidden onChange={handleImageChange} />
-                                    <div className={`flex w-28 h-9 px-2 flex-col border-2 border-primary rounded-md shadow text-zinc-900 text-xs font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none `}>
+                                    <div className={`flex w-28 h-9 px-2 flex-col border-2 border-primary rounded-md shadow text-zinc-900 dark:text-zinc-50 text-xs font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none `}>
                                         {isUploading ? "loading..." : "Choose File"}
                                     </div>
                                 </label>

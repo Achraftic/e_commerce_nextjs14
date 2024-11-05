@@ -10,7 +10,7 @@ type SubmitBtnProps={
 export default function SubmitBtn({name}:SubmitBtnProps) {
   const {pending}=useFormStatus()
     return (
-        <Button disabled={pending} type="submit" className="btn-primary py-2 px-5 bg-primary text-white font-semibold  ">
+        <Button disabled={pending} type="submit" className="btn-primary py-2 px-5 bg-primary text-zinc-50 font-semibold  ">
             {pending && <AiOutlineLoading className="animate-spin mr-2"/>}
            {name ?name:"Submit"} 
         </Button>

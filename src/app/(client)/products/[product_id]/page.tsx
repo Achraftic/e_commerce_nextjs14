@@ -62,7 +62,7 @@ export default async function OneProductPage({ params }: { params: { product_id:
             ))}
           </div>
 
-          <p className="text-zinc-500 max-w-xl">{product.description}</p>
+          <p className="text-zinc-500 dark:text-zinc-300 max-w-xl">{product.description}</p>
           <h3 className="text-xs">
             Category: <span className="text-zinc-500 p-1">{product.Category?.name}</span>
           </h3>

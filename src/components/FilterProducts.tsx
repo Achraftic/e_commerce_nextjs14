@@ -28,7 +28,7 @@ export async function FilterProduct({ searchParams }: FilterProductProps) {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <span className=" text-zinc-800 rounded-full p-1.5 cursor-pointer flex items-center gap-1" >
+                <span className=" text-primary rounded-full p-1.5 cursor-pointer flex items-center gap-1" >
 
                     <MdFilterList size={18} className="  " />
                     <span className=" text-base font-semibold capitalize">

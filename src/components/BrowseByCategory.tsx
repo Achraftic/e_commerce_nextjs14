@@ -23,7 +23,7 @@ export default function BrowseByCategory() {
         {categories.map((category, index) => (
           <li
             key={index}
-            className="flex flex-col items-center justify-center bg-zinc-100 p-4 rounded-md hover:bg-primary text-zinc-900 hover:text-zinc-50 cursor-pointer transition"
+            className="flex flex-col items-center justify-center bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-primary p-4 rounded-md hover:bg-primary text-zinc-900 dark:text-zinc-50 hover:text-zinc-50 cursor-pointer transition"
           >
             {/* Render the icon */}
             <category.icon className=" text-4xl mb-2" />

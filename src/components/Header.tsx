@@ -7,6 +7,7 @@ import NavLaptop from './NavLaptop';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import HumburgerMenu from './HumburgerMenu';
 import Logo from './Logo';
+import { ModeToggle } from './ModeToggle';
 
 
 
@@ -16,7 +17,7 @@ export default function Header() {
   const normalClass = "hover:font-medium hover:text-primary transition-all"
 
   return (
-    <header className="flex justify-between items-center py-5 px-10 text-sm  text-black">
+    <header className="flex justify-between items-center py-5 px-10 text-sm  text-black dark:text-zinc-100">
       <Logo />
       <NavLaptop activeClass={activeClass} normalClass={normalClass} />
 
@@ -24,6 +25,7 @@ export default function Header() {
 
         <ImageProfile />
         <CartButton />
+        <ModeToggle/>
         <HumburgerMenu />
       </ul>
 
