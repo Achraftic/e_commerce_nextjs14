@@ -55,8 +55,8 @@ export default function Form({ type }: FormProps) {
         <>
             <div>
 
-                <FaOpencart className='text-2xl m-auto text-dark' />
-                <h1 className='text-lg mt-2 text-dark font-semibold text-center'>
+                <FaOpencart className='text-2xl m-auto text-dark dark:text-zinc-50' />
+                <h1 className='text-lg mt-2 text-dark dark:text-zinc-50 font-semibold text-center'>
                     {type === "signin" ? "Welcome back" : "Create your account"}
                 </h1>
                 <p className='text-center text-xs text-zinc-500'>
@@ -67,7 +67,7 @@ export default function Form({ type }: FormProps) {
                 <div className='grid gap-3 grid-cols-2'>
                     {type === "signup" && (
                         <div className='gap-1 grid col-span-2'>
-                            <Label className='text-dark font-semibold'>Username</Label>
+                            <Label className='text-dark dark:text-zinc-50 font-semibold'>Username</Label>
                             <Input name="name" className='h-8 text-xs' placeholder='JohnDoe' />
                             <div className='error text-red-500 h-2 text-xs'>
                                 <p>{error?.fieldErrors?.name?.at(0)}</p>
@@ -75,14 +75,14 @@ export default function Form({ type }: FormProps) {
                         </div>
                     )}
                     <div className='gap-1 grid col-span-2'>
-                        <Label className='text-dark font-semibold'>Email</Label>
+                        <Label className='text-dark dark:text-zinc-50 font-semibold'>Email</Label>
                         <Input name="email" className='h-8 text-xs' placeholder='JohnDoe@email.com' />
                         <div className='error text-red-500 h-2 text-xs'>
                             <p>{error?.fieldErrors?.email?.at(0)}</p>
                         </div>
                     </div>
                     <div className={`grid gap-1 ${type === "signin" ? "col-span-2" : ""}`}>
-                        <Label className='text-dark font-semibold'>Password</Label>
+                        <Label className='text-dark dark:text-zinc-50 font-semibold'>Password</Label>
                         <Input type='password' name='password' className='h-8 text-xs' placeholder='********' />
                         <div className='error text-red-500 h-2 text-xs'>
                             <p>{error?.fieldErrors?.password?.at(0)}</p>
@@ -90,7 +90,7 @@ export default function Form({ type }: FormProps) {
                     </div>
                     {type === "signup" && (
                         <div className='grid gap-1'>
-                            <Label className='text-dark font-semibold'>Confirm Password</Label>
+                            <Label className='text-dark dark:text-zinc-50 font-semibold'>Confirm Password</Label>
                             <Input type='password' name='confirme_password' className='h-8 text-xs' placeholder='********' />
                             <div className='error text-red-500 h-2 text-xs'>
                                 <p>{error?.fieldErrors?.confirme_password?.at(0)}</p>
@@ -104,9 +104,9 @@ export default function Form({ type }: FormProps) {
 
             <div className='px-5'>
                 <div className='flex items-center justify-center text-zinc-300'>
-                    <span className='h-px w-full bg-zinc-200'></span>
+                    <span className='h-px w-full bg-zinc-200 dark:bg-zinc-700'></span>
                     <span className="  mb-1 mx-1">or</span>
-                    <span className='h-px w-full bg-zinc-200'></span>
+                    <span className='h-px w-full bg-zinc-200 dark:bg-zinc-700'></span>
                 </div>
 
                 <GoogleBtn type={type} />

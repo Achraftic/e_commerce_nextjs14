@@ -70,7 +70,7 @@ export default function Filter({ categories, searchParams }: { categories: Categ
                 <SheetTitle className="mb-1.5">Category</SheetTitle>
                 <div className="gap-2 grid">
                     {categories.map((category, index) => (
-                        <div key={index} className="flex items-center gap-2 text-zinc-600 text-base">
+                        <div key={index} className="flex items-center gap-2 text-zinc-600 dark:text-zinc-100 text-base">
                             <Input
                                 type="checkbox"
                                 checked={selectedCategories.includes(category.name)}
@@ -88,7 +88,7 @@ export default function Filter({ categories, searchParams }: { categories: Categ
                     <Slider
                         name="price"
                         defaultValue={[price]}
-                        max={100}
+                        max={400}
                         step={1}
                         onValueChange={handlePriceChange}
                     />

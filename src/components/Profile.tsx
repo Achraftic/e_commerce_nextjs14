@@ -19,7 +19,7 @@ export async function Profile() {
    
     return (
         <Dialog >
-            <DialogTrigger asChild className=" px-2 w-full cursor-pointer py-1.5 hover:bg-zinc-100 block">
+            <DialogTrigger asChild className=" px-2 w-full cursor-pointer py-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-900 block">
                 <span className="w-full">Profile</span>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[505px] max-w-[450px] rounded-xl ">
