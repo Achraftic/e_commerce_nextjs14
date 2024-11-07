@@ -43,7 +43,7 @@ export default function SideBar() {
             initial={{ width: 0 }}
             animate={{ width: sidebarWidth() }}
             transition={{ duration: 0.2 }}
-            className="sticky h-screen py-6 md:w-full w-max top-0 flex flex-col justify-center bg-transparent px-2 "
+            className="sticky h-screen py-6 md:w-full w-max top-0 flex flex-col justify-center bg-transparent dark:bg-zinc-950/60 px-2 "
         >
             {/* Sidebar Header */}
             <div
