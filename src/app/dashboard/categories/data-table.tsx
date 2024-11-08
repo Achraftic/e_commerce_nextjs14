@@ -47,12 +47,7 @@ export function DataTable<TData>({
       columnFilters,
       globalFilter,
     },
-    globalFilterFn: (row, columnId, filterValue) => {
-
-      const value = row.getValue(columnId);
-      return String(value).toLowerCase().includes(String(filterValue).toLowerCase());
-
-    },
+    
   });
 
   return (

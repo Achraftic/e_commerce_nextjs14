@@ -86,7 +86,7 @@ export const columns: ColumnDef<CommandeType>[] = [
         cell: ({ row }) => {
             const order = row.original
             return (
-                <Link href={`/dashboard/orders/${order.id}`}> <IoEyeOutline className="h-5 w-5 text-zinc-800" /></Link>
+                <Link href={`/dashboard/orders/${order.id}`}> <IoEyeOutline className="h-5 w-5 text-zinc-800 dark:text-zinc-200" /></Link>
 
 
             )

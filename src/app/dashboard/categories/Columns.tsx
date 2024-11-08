@@ -54,7 +54,7 @@ export const columns: ColumnDef<Category>[] = [
         accessorKey: "categoryName",
         header: "Category Name",
         cell: ({ row }) => <div className="capitalize">{row.original.name}</div>,
-        enableGlobalFilter: true,
+       
 
 
     },
