@@ -10,7 +10,7 @@ export default async function ImageProfile() {
   return (
     <>
         {session?.user ?
-          <DropDown>      
+          <DropDown session={session}>      
             <Image src={session?.user?.image as string} width={30} height={30} alt="user image" className='rounded-full object-cover w-8 h-8   cursor-pointer' />
           </DropDown>
           :

@@ -4,8 +4,7 @@ import { revalidatePath, unstable_cache } from "next/cache";
 import prisma from "../../prisma/db";
 import { UTApi } from "uploadthing/server";
 import { redirect } from "next/navigation";
-import NotFound from "@/app/not-found";
-import { cookies } from "next/headers";
+
 
 
 
@@ -207,24 +206,61 @@ export const getAllProducts = unstable_cache(async () => {
 
 
 export const getProductsById = async (id: number) => {
-//   const cookieStore = cookies();
-//   let recentlyViewed = cookieStore.get("recentlyViewed")?.value;
+    //   const cookieStore = cookies();
+    //   let recentlyViewed = cookieStore.get("recentlyViewed")?.value;
 
-//   let viewedArray = recentlyViewed ? JSON.parse(recentlyViewed) : [];
+    //   let viewedArray = recentlyViewed ? JSON.parse(recentlyViewed) : [];
 
-//   if (!viewedArray.includes(id)) {
-//     if (viewedArray.length >= 5) {
-//       viewedArray.shift();
-//     }
-//     viewedArray.push(id);
-//     console.log(viewedArray);
-//     cookieStore.set("recentlyViewed", JSON.stringify(viewedArray));
-//   }
+    //   if (!viewedArray.includes(id)) {
+    //     if (viewedArray.length >= 5) {
+    //       viewedArray.shift();
+    //     }
+    //     viewedArray.push(id);
+    //     console.log(viewedArray);
+    //     cookieStore.set("recentlyViewed", JSON.stringify(viewedArray));
+    //   }
 
-  const product = await prisma.product.findUnique({
-    where: { id },
-    include: { Category: true }
-  });
+    const product = await prisma.product.findUnique({
+        where: { id },
+        include: { Category: true }
+    });
 
-  return product;
+    return product;
 };
+
+
+export const GetOrderClient = async (userId: string) => {
+    const orders = await prisma.commande.findMany({
+      
+        where: {
+            userId: userId
+        },
+        orderBy: {
+            createdAt: 'desc',
+        },
+    })
+    return orders
+}
+
+export const GetOrderItems = async (orderid: number) =>{
+
+ const orderitems=await prisma.ligneCommande.findMany(
+    {
+        where: {
+            CommandeId: orderid
+
+        },
+        include: {
+            product: {
+                select: {
+                    name: true,
+                    price: true,
+                    imageUrl: true,
+
+                }
+            }
+        }
+    }
+)
+return orderitems;
+}

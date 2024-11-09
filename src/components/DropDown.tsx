@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Logoutbtn from "./auth/Logoutbtn"
 import { Profile } from "./Profile"
+import { Session } from "next-auth"
+import Link from "next/link"
 
-export function DropDown({ children }: { children: React.ReactNode }) {
+export function DropDown({ children,session }: { children: React.ReactNode,session?:Session }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -21,9 +23,15 @@ export function DropDown({ children }: { children: React.ReactNode }) {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                
                         <Profile /> 
                 </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                   
+                        <Link href="/myorders">My orders</Link>
+                </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                     <Logoutbtn />
