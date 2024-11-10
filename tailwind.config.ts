@@ -29,6 +29,7 @@ const config: Config = {
 				'full': '9999px',
 				'large': '12px',
 			}
+			
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

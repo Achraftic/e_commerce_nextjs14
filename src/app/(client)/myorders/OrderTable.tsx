@@ -25,7 +25,7 @@ type orderTableProps = {
     }[];
 }
 export default function OrderTable({ orders }: orderTableProps) {
-    const { setOrderid } = useOrderStore();
+    const { setOrderid,orderid } = useOrderStore();
 
     useEffect(() => {
         if (orders.length > 0) {
@@ -34,10 +34,13 @@ export default function OrderTable({ orders }: orderTableProps) {
     }, [orders, setOrderid]);
 
     return (
-        <Table>
+        <div className='flex-1'>
+
+      
+        <Table className='cursor-pointer'>
 
             <TableHeader>
-                <TableRow>
+                <TableRow >
                     <TableHead >Num</TableHead>
                     <TableHead>Date order</TableHead>
                     <TableHead>Amount</TableHead>
@@ -48,19 +51,20 @@ export default function OrderTable({ orders }: orderTableProps) {
             </TableHeader>
             <TableBody>
                 {orders.map((order) => (
-                    <TableRow key={order.id} onClick={() => setOrderid(order.id)}>
+                   <TableRow  onClick={() => setOrderid(order.id)} className={`${orderid===order.id ? 'bg-zinc-200/40 dark:bg-zinc-800/50 ' : ''}`} >
 
                         <TableCell className="font-medium">{order.numero_commande.slice(0, 14)}...</TableCell>
                         <TableCell>{order.date_commande.toISOString().split("T")[0]}</TableCell>
                         <TableCell>${order.montant_total.toFixed(2)}</TableCell>
                         <TableCell>{order.statut}</TableCell>
                         <TableCell>{order.moyen_paiement}</TableCell>
-                        <TableCell><Link href={`/myorders/${order.id}`}>detail </Link> </TableCell>
+                      
 
                     </TableRow>
                 ))}
             </TableBody>
 
         </Table>
+        </div>
     )
 }

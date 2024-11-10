@@ -8,7 +8,7 @@ export default  function OrderItems() {
 
     
     return (
-        <div className='flex-1'>
+        <div className={` flex-1 ${orderid ? 'block flex-1' : 'hidden'}`}>
         <OrderItemsList orderid={orderid} />    
         </div>
     )
