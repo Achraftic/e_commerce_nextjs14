@@ -8,7 +8,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
       <SideBar />
       <div className='shadow-2xl shadow-zinc-200/70 dark:shadow-none  w-full mx-auto  overflow-x-auto '>
         <HeaderDashboard/>
-        <div className='md:px-5 px-3'>
+        <div className='md:px-5 px-3 py-2'>
         {children}
         </div>
       </div>
