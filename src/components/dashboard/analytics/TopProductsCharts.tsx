@@ -1,6 +1,4 @@
 "use client";
-
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import React from "react";
 
@@ -8,7 +6,6 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -18,7 +15,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-import { GetTopUsers } from "@/actions/AnalyticsAction";
+import { GetTopProducts } from "@/actions/AnalyticsAction";
 
 // Configuration for chart colors
 const chartConfig = {
@@ -28,7 +25,6 @@ const chartConfig = {
     },
     name: {
         label: "Name",
-     
         color: "#A020F0",
     },
 } satisfies ChartConfig;
@@ -36,17 +32,17 @@ const chartConfig = {
 type DataType = {
     name: string | null;
     _count: {
-        Commande: number;
+        LigneCommande: number;
     };
 };
 
-export function Charts() {
+export function TopProductsCharts() {
     const [data, setData] = React.useState<DataType[]>([]);
 
     React.useEffect(() => {
         async function getData() {
             try {
-                const result = await GetTopUsers();
+                const result = await GetTopProducts();
                 setData(result);
             } catch (error) {
                 console.error("Failed to fetch data:", error);
@@ -58,24 +54,24 @@ export function Charts() {
     // Transform data for chart rendering
     const chartData = data.map((item) => ({
         name: item.name,
-        count: item._count.Commande,
+        count: item._count.LigneCommande,
     }));
 
     console.log(chartData);
 
     return (
-        <Card className="max-w-md">
+        <Card className="">
             <CardHeader>
-                <CardTitle>Top Users Chart</CardTitle>
-                <CardDescription>Top User Command Counts</CardDescription>
+                <CardTitle>Best Selling Products </CardTitle>
+                <CardDescription>Top Products was ordered </CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={chartConfig}>
-                    <BarChart width={600} height={300} data={chartData}>
+                <ChartContainer  config={chartConfig}>
+                    <BarChart accessibilityLayer  width={600} height={300} data={chartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey="name"
-                            tickLine={true}
+                            tickLine={false}
                             tickMargin={10}
                             axisLine={false}
                             tickFormatter={(value) => value.slice(0, 3)}
@@ -88,14 +84,7 @@ export function Charts() {
                     </BarChart>
                 </ChartContainer>
             </CardContent>
-            {/* <CardFooter className="flex-col items-start gap-2 text-sm">
-                <div className="flex gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                </div>
-                <div className="leading-none text-muted-foreground">
-                    Showing top users by command count.
-                </div>
-            </CardFooter> */}
+         
         </Card>
     );
 }
