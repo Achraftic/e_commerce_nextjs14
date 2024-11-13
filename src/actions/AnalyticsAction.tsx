@@ -69,3 +69,40 @@ export const GetInventoryLevels=async()=>{
     })
     return products
 }
+
+
+
+
+export const GetOverView = async () => {
+  // Fetch all orders
+  const orders = await prisma.commande.findMany({
+    select: {
+      montant_total: true,
+      date_commande: true,
+    },
+  });
+
+  // Group by month and year
+  const ordersByMonth = orders.reduce((acc: { [key: string]: number }, order) => {
+    const date = new Date(order.date_commande);
+    const month = date.getMonth() + 1; // Months are 0-based in JavaScript
+    const year = date.getFullYear();
+    const key = `${year}-${month.toString().padStart(2, '0')}`;
+
+    if (!acc[key]) {
+      acc[key] = 0;
+    }
+
+    acc[key] += order.montant_total;
+  
+    return acc;
+  }, {});
+
+  // Convert the result to an array format if preferred
+  const result = Object.entries(ordersByMonth).map(([month, total]) => ({
+    month,
+    totalMontant: total,
+  }));
+
+  return result;
+};

@@ -1,18 +1,17 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { CartesianGrid, LabelList, Line, LineChart, Tooltip } from "recharts"
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import React from "react"
 import { GetInventoryLevels } from "@/actions/AnalyticsAction"
+import { cn } from "@/lib/utils"
 
 type DataType = {
   name: string;
@@ -24,7 +23,7 @@ const truncateLabel = (label: string, length = 14) => {
   return label.length > length ? `${label.slice(0, length)}...` : label;
 };
 
-export function InventoryLevels() {
+export function InventoryLevels({className}:{className?:string}) {
   const [data, setData] = React.useState<DataType[]>([]);
 
   React.useEffect(() => {
@@ -40,7 +39,7 @@ export function InventoryLevels() {
   }, []);
 
   return (
-    <Card className=" col-span-2 ">
+    <Card className={`${cn(className)}`}>
       <CardHeader>
         <CardTitle>Inventory Levels</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
@@ -54,6 +53,7 @@ export function InventoryLevels() {
             right: 24,
           }}
           width={500}
+          
           height={200}
         >
           <CartesianGrid vertical={false} />

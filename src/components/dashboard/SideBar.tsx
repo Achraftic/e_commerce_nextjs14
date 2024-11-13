@@ -8,8 +8,8 @@ import { usePathname } from "next/navigation";
 import { dashboardRoutes } from "@/routes";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
-const activeClass = " bg-zinc-100 dark:bg-zinc-50 text-zinc-600 dark:text-zinc-800 font-medium";
-const normalClass = "text-zinc-500  transition hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-50 hover:dark:text-zinc-800 hover:font-medium";
+const activeClass = " bg-primary font-medium text-zinc-100";
+const normalClass = "  transition hover:bg-primary hover:text-zinc-100  hover:font-medium";
 
 export default function SideBar() {
     const [toggle, setToggle] = useState(false);
@@ -74,7 +74,7 @@ export default function SideBar() {
                 {dashboardRoutes.map((link, index) => (
                     <Link href={link.path} key={index}>
                         <span
-                            className={`${link.path === currentPath ? activeClass : normalClass} p-2 rounded-md md:text-sm text-xl flex max-md:justify-center m-auto items-center space-x-2`}
+                            className={`${link.path === currentPath ? activeClass : normalClass} p-2 rounded-md md:text-sm text-xl   flex max-md:justify-center m-auto items-center space-x-2`}
                         >
                             {!toggle && (
                                 <motion.span className="text-lg m-auto">

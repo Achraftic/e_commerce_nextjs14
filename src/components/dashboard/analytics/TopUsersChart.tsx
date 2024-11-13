@@ -17,6 +17,7 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart";
 import { GetTopUsers } from "@/actions/AnalyticsAction";
+import { cn } from "@/lib/utils";
 
 // Configuration for chart colors
 const chartConfig = {
@@ -37,7 +38,7 @@ type DataType = {
     };
 };
 
-export function TopUsersChart() {
+export function TopUsersChart({className}:{className?:string})  {
     const [data, setData] = React.useState<DataType[]>([]);
 
     React.useEffect(() => {
@@ -58,10 +59,9 @@ export function TopUsersChart() {
         count: item._count.Commande,
     }));
 
-    console.log(chartData);
-
+   
     return (
-        <Card className=" max-sm:col-span-2 ">
+        <Card className={`${cn(className)}`}>
             <CardHeader>
                 <CardTitle>Best Users</CardTitle>
                 <CardDescription>Top User Command Counts</CardDescription>

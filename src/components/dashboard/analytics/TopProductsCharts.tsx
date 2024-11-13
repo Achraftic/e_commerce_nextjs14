@@ -16,6 +16,7 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart";
 import { GetTopProducts } from "@/actions/AnalyticsAction";
+import { cn } from "@/lib/utils";
 
 // Configuration for chart colors
 const chartConfig = {
@@ -36,7 +37,7 @@ type DataType = {
     };
 };
 
-export function TopProductsCharts() {
+export function TopProductsCharts({className}:{className?:string}) {
     const [data, setData] = React.useState<DataType[]>([]);
 
     React.useEffect(() => {
@@ -57,10 +58,10 @@ export function TopProductsCharts() {
         count: item._count.LigneCommande,
     }));
 
-    console.log(chartData);
+    
 
     return (
-        <Card className="">
+        <Card className={`${cn(className)}`}>
             <CardHeader>
                 <CardTitle>Best Selling Products </CardTitle>
                 <CardDescription>Top Products was ordered </CardDescription>
