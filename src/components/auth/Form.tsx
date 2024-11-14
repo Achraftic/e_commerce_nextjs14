@@ -103,17 +103,17 @@ export default function Form({ type }: FormProps) {
             </form>
 
             <div className='px-5'>
-                <div className='flex items-center justify-center text-zinc-300'>
-                    <span className='h-px w-full bg-zinc-200 dark:bg-zinc-700'></span>
-                    <span className="  mb-1 mx-1">or</span>
-                    <span className='h-px w-full bg-zinc-200 dark:bg-zinc-700'></span>
+                <div className='flex items-center justify-center text-zinc-50'>
+                    <span className='h-px w-full bg-zinc-400/60 dark:bg-zinc-700'></span>
+                    <span className="   mb-1 mx-1">or</span>
+                    <span className='h-px w-full bg-zinc-400/60 dark:bg-zinc-700'></span>
                 </div>
 
                 <GoogleBtn type={type} />
 
-                <p className='text-xs text-zinc-400 mt-2 text-center'>
-                    {type === "signin" ? "Don't" : "Already"} have an account?
-                    <Link href={type === "signin" ? '/signup' : '/signin'} className='text-primary font-semibold'>
+                <p className='text-xs text-zinc-700 mt-2 dark:text-zinc-300  text-center'>
+                    {type === "signin" ? "Don't" : "Already"} have an account ? 
+                    <Link href={type === "signin" ? '/signup' : '/signin'} className='text-primary ml-0.5 font-semibold'>
                         {type === "signin" ? "Sign up" : "Sign in"}
                     </Link>
                 </p>

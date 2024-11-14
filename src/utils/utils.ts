@@ -42,7 +42,6 @@ export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-import { useEffect, useRef } from 'react';
 
 export function useDebounce<T extends (...args: any[]) => void>(callback: T, delay: number) {
     const timerRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -68,3 +67,25 @@ export function useDebounce<T extends (...args: any[]) => void>(callback: T, del
 
     return debouncedCallback;
 }
+
+
+// utils/exportToExcel.js
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+
+
+export const exportToExcel = async (data:any[], fileName = 'data.xlsx') => {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Sheet1');
+  
+  // Set worksheet columns
+  worksheet.columns = Object.keys(data[0]).map(key => ({ header: key, key }));
+  data.forEach(row => worksheet.addRow(row));
+
+  // Generate the Excel file as a Blob
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+  // Use FileSaver to save the file
+  saveAs(blob, fileName);
+};

@@ -8,6 +8,8 @@ import { CiSearch } from "react-icons/ci"
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
+import { TbFileExport } from "react-icons/tb"
+import { exportToExcel } from "@/utils/utils"
 
 // Assuming categories are passed as props or come from the data
 interface DataTableProps<TData, TValue> {
@@ -24,7 +26,10 @@ export function DataTable<TData, TValue>({
   const [globalFilter, setGlobalFilter] = React.useState("") // For global search
 
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-
+  const exportData = () => {
+    exportToExcel(data, "products.xlsx")
+    console.log("okd")
+  }
   const table = useReactTable({
     data,
     columns,
@@ -59,9 +64,16 @@ export function DataTable<TData, TValue>({
 
 
         </div>
+        <div className="flex items-center gap-2">
+
+        <Button onClick={()=> exportData()}  variant="outline" className="h-7 text-xs px-2"> 
+          <TbFileExport className="mr-1" size={14} />
+           Export
+           </Button>
         <Button asChild className="h-7 text-xs px-2"> 
           <Link href="/dashboard/products/add"><PlusIcon className="mr-1" scale={15}/> Add Product</Link> 
            </Button>
+        </div>
       </div>
 
 
