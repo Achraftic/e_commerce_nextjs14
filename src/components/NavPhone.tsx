@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 import Logo from './Logo'
 import { motion, AnimatePresence } from 'framer-motion'
+import { IoChevronForward } from 'react-icons/io5'
 
 interface NavPhoneProps {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +29,7 @@ export default function NavPhone({ setToggle, toggle }: NavPhoneProps) {
           animate={{ width: "250px" }}
           exit={{ width: 0, transition: { duration: 0.05 } }}
           transition={{ duration: 0.3 }}
-          className="p-4 fixed left-0 h-screen shadow-xl top-0 bg-zinc-50 md:hidden z-50 overflow-hidden"
+          className="p-4 fixed left-0 h-screen shadow-xl top-0 bg-zinc-50 dark:bg-zinc-800 md:hidden z-50 overflow-hidden"
         >
           <motion.div
             layout
@@ -59,6 +60,9 @@ export default function NavPhone({ setToggle, toggle }: NavPhoneProps) {
               </Link>
             ))}
           </motion.ul>
+          <Link href="/signin" className=" cursor-pointer gap-1     font-semibold  flex items-center  ">Sign in
+           <IoChevronForward  />
+          </Link>
         </motion.div>
       )}
   

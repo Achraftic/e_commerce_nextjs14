@@ -121,3 +121,4 @@ export default function Form({ type }: FormProps) {
         </>
     );
 }
+
