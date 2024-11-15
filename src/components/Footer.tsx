@@ -1,7 +1,4 @@
-import { LinkSite } from "@/config/site";
 import { CiFacebook, CiInstagram, CiTwitter } from "react-icons/ci";
-
-
 
 export function Footer() {
     return (

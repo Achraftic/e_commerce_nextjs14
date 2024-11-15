@@ -1,8 +1,6 @@
 "use client"
-import React from 'react'
 import { Button } from '../ui/button'
 import { useFormStatus } from 'react-dom'
-
 import { LuLoader2 } from "react-icons/lu";
 
 export default function ButtonSubmit({ type }: { type: "signin" | "signup" }) {

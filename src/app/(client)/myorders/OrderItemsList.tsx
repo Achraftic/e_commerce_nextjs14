@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { GetOrderItems } from '@/actions/productsAction'
 import Image from 'next/image';
-import {motion, MotionConfigContext } from 'framer-motion';
+import {motion } from 'framer-motion';
 import Loading from '../loading';
 
 type OrderItem = {

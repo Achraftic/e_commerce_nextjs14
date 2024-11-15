@@ -3,9 +3,6 @@ import { DataTable } from "./data-table"
 import H1 from "@/components/ui/h1"
 import { getAllProducts } from "@/actions/productsAction";
 
-
-
-
 export default async function ProductsPage() {
   const data =  await getAllProducts();
 

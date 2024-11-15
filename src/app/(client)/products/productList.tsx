@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchProducts } from '@/actions/productsAction';
+
 import Product from '@/components/Product';
 import { HiOutlineFaceFrown } from "react-icons/hi2";
 import { ProductsType } from '@/types/type';

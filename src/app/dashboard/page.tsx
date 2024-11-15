@@ -1,5 +1,3 @@
-
-
 import { InventoryLevels } from "@/components/dashboard/analytics/InventoryLevels";
 import Overview from "@/components/dashboard/analytics/Overview";
 import CardStat from "@/components/dashboard/cardStat";

@@ -1,9 +1,5 @@
-
-import { getCartItems, ProductCart } from '@/actions/action';
-
-// import { cookies } from 'next/headers';
+import { getCartItems } from '@/actions/action'
 import React from 'react';
-
 export default async function CartPage() {
     // cookies().delete("cart")
   const cartItems=await getCartItems();
@@ -15,7 +11,7 @@ export default async function CartPage() {
 
    
       {cartItems? (
-        cartItems.map((item:ProductCart, index:number) => (
+        cartItems.map((item:any, index:number) => (
           <div key={index} className="cart-item border p-3 text-lg ">
             <h2>{item.name}</h2>
             <p>Price: ${item.price}</p>

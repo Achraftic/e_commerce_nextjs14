@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FcGoogle } from 'react-icons/fc'
 import { Button } from '../ui/button'
 import { LoginWithGoogle } from '@/actions/authAction'

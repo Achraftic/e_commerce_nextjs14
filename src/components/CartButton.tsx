@@ -17,11 +17,8 @@ import { FiShoppingCart } from "react-icons/fi";
 export default async function CartButton() {
     const { count } = await cartCount()
 
-
-
     return (
         <>
-
             <Sheet>
                 <SheetTrigger asChild>
                     <div className="bg-slate-400 cursor-pointer font-semibold block px-2 py-2 rounded-full bg-opacity-10  relative   ">

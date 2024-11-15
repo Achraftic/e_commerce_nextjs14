@@ -1,4 +1,3 @@
-
 import React from 'react'
 import CartButton from './CartButton'
 import ImageProfile from './ImageProfile';

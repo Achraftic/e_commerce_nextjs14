@@ -155,7 +155,7 @@ export const editProduct = async (data: FormData, id: number) => {
 };
 
 export const deleteProduct = async (id: number) => {
-    console.log(id)
+   
     try {
 
         await prisma.product.delete({ where: { id: id } });

@@ -1,9 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { addCategory, editCategory, getCategory } from '@/actions/CategoryAction';
-import { Sub } from '@radix-ui/react-dropdown-menu';
 import SubmitBtn from './SubmitBtn';
 import { toast } from 'sonner';
 import { Category } from '@prisma/client';

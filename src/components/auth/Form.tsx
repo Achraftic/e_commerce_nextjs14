@@ -1,5 +1,4 @@
 'use client'
-
 import { Label } from '@radix-ui/react-label'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'

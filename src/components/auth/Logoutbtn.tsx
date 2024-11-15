@@ -1,7 +1,5 @@
-
-
 import { Logout } from '@/actions/authAction'
-import React from 'react'
+
 
 export default function Logoutbtn() {
 

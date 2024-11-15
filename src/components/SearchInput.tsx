@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Input } from './ui/input';
 import { CiSearch } from 'react-icons/ci';
 
